@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indegoal/lib.dart';
 
 class GoalStart extends StatefulWidget {
   const GoalStart({super.key, required this.onCancel, required this.onSave});
@@ -28,18 +29,24 @@ class _GoalStartState extends State<GoalStart> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text('${selectedDate.toLocal()}'.split(' ')[0]),
-        const SizedBox(
-          height: 20.0,
-        ),
-        ElevatedButton(
-          onPressed: () => _selectDate(context),
-          child: const Text('Select date'),
-        ),
-      ],
+    return Editor(
+      onCancel: widget.onCancel,
+      onSave: () => widget.onSave(selectedDate),
+      cancelDisplay: const Text('Back'),
+      saveDisplay: const Text('Next'),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('${selectedDate.toLocal()}'.split(' ')[0]),
+          const SizedBox(
+            height: 20.0,
+          ),
+          ElevatedButton(
+            onPressed: () => _selectDate(context),
+            child: const Text('Select date'),
+          ),
+        ],
+      ),
     );
   }
 }
