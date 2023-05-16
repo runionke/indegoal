@@ -12,6 +12,8 @@ class GoalInput<T> extends StatefulWidget {
     required this.onCancel,
     required this.onSave,
     required this.controller,
+    this.saveDisplay,
+    this.cancelDisplay,
   });
 
   final Function() onCancel;
@@ -20,6 +22,9 @@ class GoalInput<T> extends StatefulWidget {
   final Widget label;
   final Widget Function(T) input;
   final StreamController<T> controller;
+
+  final Widget? saveDisplay;
+  final Widget? cancelDisplay;
 
   @override
   State<GoalInput<T>> createState() => _GoalInputState<T>();
@@ -43,7 +48,6 @@ class _GoalInputState<T> extends State<GoalInput<T>> {
   void dispose() {
     super.dispose();
     sub?.cancel();
-    widget.controller.close();
   }
 
   @override
@@ -51,8 +55,8 @@ class _GoalInputState<T> extends State<GoalInput<T>> {
     return Editor(
         onCancel: widget.onCancel,
         onSave: () => widget.onSave(_value),
-        cancelDisplay: const Text('Back'),
-        saveDisplay: const Text('Next'),
+        cancelDisplay: widget.cancelDisplay ?? const Text('Back'),
+        saveDisplay: widget.saveDisplay ?? const Text('Next'),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

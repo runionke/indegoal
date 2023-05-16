@@ -37,13 +37,13 @@ class _GoalStartState extends State<GoalStart> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text('${selectedDate.toLocal()}'.split(' ')[0]),
+          const Flexible(child: Text('Start Today or an alternate time?')),
           const SizedBox(
             height: 20.0,
           ),
           ElevatedButton(
             onPressed: () => _selectDate(context),
-            child: const Text('Select date'),
+            child: Text('${selectedDate.toLocal()}'.split(' ')[0]),
           ),
         ],
       ),

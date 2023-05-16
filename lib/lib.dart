@@ -9,7 +9,7 @@ export 'providers/event_provider.dart';
 export 'providers/goal_provider.dart';
 export 'providers/route_provider.dart';
 export 'ui/goal/create/create_goal_view.dart';
-export 'ui/goal/create/goal_length.dart';
+export 'ui/goal/create/goal_input.dart';
 export 'ui/goal/create/goal_start.dart';
 export 'ui/home/home_view.dart';
 export 'ui/login/app_logo.dart';

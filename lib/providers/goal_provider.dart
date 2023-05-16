@@ -15,9 +15,11 @@ class GoalNotifier extends _$GoalNotifier {
     return data.map((e) => Goal.fromJson(e));
   }
 
-  Future<void> add(Goal goal) async {
-    await ref.watch(appwriteProvider.notifier).create(
-        data: goal.toJson(), id: goal.id, collection: DbCollection.goals);
+  Future<void> create(Goal goal) async {
+    Log.d('GoalNotifier -> create $goal');
+    await ref
+        .watch(appwriteProvider.notifier)
+        .create(data: goal.toJson(), collection: DbCollection.goals);
     ref.invalidateSelf();
   }
 

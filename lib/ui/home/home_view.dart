@@ -18,7 +18,7 @@ class HomeView extends ConsumerWidget {
                   TextButton(
                       onPressed: () => ref
                           .watch(goalNotifierProvider.notifier)
-                          .add(Goal(
+                          .create(Goal(
                               id: 'abc',
                               minutes: 33,
                               period: 45,

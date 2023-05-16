@@ -15,9 +15,10 @@ class EventNotifier extends _$EventNotifier {
     return data.map((e) => Event.fromJson(e));
   }
 
-  Future<void> add(Event event) async {
-    await ref.watch(appwriteProvider.notifier).create(
-        data: event.toJson(), id: event.id, collection: DbCollection.events);
+  Future<void> create(Event event) async {
+    await ref
+        .watch(appwriteProvider.notifier)
+        .create(data: event.toJson(), collection: DbCollection.events);
     ref.invalidateSelf();
   }
 

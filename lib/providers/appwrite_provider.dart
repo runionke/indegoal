@@ -33,61 +33,42 @@ class Appwrite extends _$Appwrite {
       {required DbCollection collection}) async {
     Log.d('AppwriteNotifier-> list');
 
-    return await ref.watch(authNotifierProvider).when(
-          authorized: (user) async {
-            final database = ref.watch(appwriteProvider).database;
-            final response = await database.listDocuments(
-              databaseId: AppwriteSettings.databaseId,
-              collectionId: collection.name,
-              queries: [Query.equal('userId', user.id)],
-            );
-            return response.documents.map((e) => e.data);
-          },
-          unauthorized: () => [],
-          loading: () => [],
-        );
+    final user = await state.account.get();
+
+    final response = await state.database.listDocuments(
+      databaseId: AppwriteSettings.databaseId,
+      collectionId: collection.name,
+      queries: [Query.equal('userId', user.$id)],
+    );
+    return response.documents.map((e) => e.data);
   }
 
   Future<void> create({
     required Map<String, dynamic> data,
-    required String id,
     required DbCollection collection,
   }) async {
-    await ref.watch(authNotifierProvider).when(
-          authorized: (user) async {
-            final database = ref.watch(appwriteProvider).database;
-            await database.createDocument(
-              databaseId: AppwriteSettings.databaseId,
-              collectionId: collection.name,
-              documentId: id,
-              data: data,
-              permissions: [
-                Permission.read(Role.user(user.id)),
-                Permission.write(Role.user(user.id)),
-              ],
-            );
-          },
-          unauthorized: () {},
-          loading: () {},
-        );
-    ref.invalidateSelf();
+    Log.d('AppwriteNotifier -> create : $collection');
+    final user = await state.account.get();
+    data['userId'] = user.$id;
+    await state.database.createDocument(
+      databaseId: AppwriteSettings.databaseId,
+      collectionId: collection.name,
+      documentId: ID.unique(),
+      data: data,
+      permissions: [
+        Permission.read(Role.user(user.$id)),
+        Permission.write(Role.user(user.$id)),
+      ],
+    );
   }
 
   Future<void> delete(
       {required String id, required DbCollection collection}) async {
-    await ref.watch(authNotifierProvider).when(
-          authorized: (user) async {
-            final database = ref.watch(appwriteProvider).database;
-            await database.deleteDocument(
-              databaseId: AppwriteSettings.databaseId,
-              collectionId: collection.name,
-              documentId: id,
-            );
-          },
-          unauthorized: () {},
-          loading: () {},
-        );
-    ref.invalidateSelf();
+    await state.database.deleteDocument(
+      databaseId: AppwriteSettings.databaseId,
+      collectionId: collection.name,
+      documentId: id,
+    );
   }
 }
 
