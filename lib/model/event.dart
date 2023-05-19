@@ -22,4 +22,12 @@ class Event with _$Event {
   }) = _event;
 
   factory Event.fromJson(Map<String, Object?> json) => _$EventFromJson(json);
+  factory Event.empty() => Event(
+        id: '',
+        notes: '',
+        duration: 1,
+        photos: [],
+        time: DateTime.now(),
+        userId: '',
+      );
 }

@@ -7,6 +7,7 @@ class Wizard extends StatefulWidget {
     this.onComplete,
     this.onCancel,
     required this.builder,
+    this.outtrow,
   });
 
   final Function()? onCancel;
@@ -20,6 +21,9 @@ class Wizard extends StatefulWidget {
   ) builder;
   final List<WizardStep> steps;
 
+  ///shown after complete
+  final Widget? outtrow;
+
   @override
   State<Wizard> createState() => _WizardState();
 }
@@ -29,8 +33,8 @@ class _WizardState<T extends Object> extends State<Wizard> {
 
   @override
   Widget build(BuildContext context) {
-    if (stepIndex < 0 || stepIndex > widget.steps.length) {
-      return const SizedBox.shrink();
+    if (stepIndex < 0 || stepIndex > widget.steps.length - 1) {
+      return widget.outtrow ?? const SizedBox.shrink();
     }
 
     return widget.builder(
@@ -43,10 +47,11 @@ class _WizardState<T extends Object> extends State<Wizard> {
         }
       }),
       () {
-        if (widget.steps[stepIndex].update<T>()) {
+        if (widget.steps[stepIndex].valid != null &&
+            widget.steps[stepIndex].valid!<T>()) {
           setState(() {
             stepIndex++;
-            if (stepIndex > widget.steps.length && widget.onComplete != null) {
+            if (stepIndex == widget.steps.length && widget.onComplete != null) {
               widget.onComplete!();
             }
           });
@@ -61,11 +66,11 @@ class WizardStep extends StatelessWidget {
   const WizardStep({
     super.key,
     required this.builder,
-    required this.update,
+    this.valid,
   });
   final Widget Function(BuildContext context) builder;
 
-  final bool Function<T>() update;
+  final bool Function<T>()? valid;
 
   @override
   Widget build(BuildContext context) {
