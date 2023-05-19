@@ -47,7 +47,7 @@ class _WizardState<T extends Object> extends State<Wizard> {
         }
       }),
       () {
-        if (widget.steps[stepIndex].valid != null &&
+        if (widget.steps[stepIndex].valid == null ||
             widget.steps[stepIndex].valid!<T>()) {
           setState(() {
             stepIndex++;
