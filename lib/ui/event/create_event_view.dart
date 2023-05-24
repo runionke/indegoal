@@ -19,7 +19,9 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
     return SleeveOfWizard(
         child: Wizard(
       onComplete: () async {
-        await ref.watch(eventNotifierProvider().notifier).create(event);
+        await ref
+            .watch(eventNotifierProvider(goalId: widget.goalId).notifier)
+            .create(event);
         if (context.mounted) {
           context.go('/');
         }

@@ -18,7 +18,6 @@ class Appwrite extends _$Appwrite {
         .setEndpoint('https://cloud.appwrite.io/v1')
         .setProject('indegoal');
 
-    Log.d('AAAA: QUERY: ${Query.equal('\$id', 'test')}');
     final account = Account(client);
     final database = Databases(client);
     return (account: account, client: client, database: database);

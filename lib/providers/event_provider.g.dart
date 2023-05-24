@@ -6,7 +6,7 @@ part of 'event_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventNotifierHash() => r'f4cae4327f7a932002cf480e260c482bbad7c618';
+String _$eventNotifierHash() => r'7dae4e83f60f43f73a569b65e3529d5ea4c720f2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,10 +30,10 @@ class _SystemHash {
 }
 
 abstract class _$EventNotifier extends BuildlessAsyncNotifier<Iterable<Event>> {
-  late final Goal? goal;
+  late final String? goalId;
 
   Future<Iterable<Event>> build({
-    Goal? goal,
+    String? goalId,
   });
 }
 
@@ -48,10 +48,10 @@ class EventNotifierFamily extends Family<AsyncValue<Iterable<Event>>> {
 
   /// See also [EventNotifier].
   EventNotifierProvider call({
-    Goal? goal,
+    String? goalId,
   }) {
     return EventNotifierProvider(
-      goal: goal,
+      goalId: goalId,
     );
   }
 
@@ -60,7 +60,7 @@ class EventNotifierFamily extends Family<AsyncValue<Iterable<Event>>> {
     covariant EventNotifierProvider provider,
   ) {
     return call(
-      goal: provider.goal,
+      goalId: provider.goalId,
     );
   }
 
@@ -84,9 +84,9 @@ class EventNotifierProvider
     extends AsyncNotifierProviderImpl<EventNotifier, Iterable<Event>> {
   /// See also [EventNotifier].
   EventNotifierProvider({
-    this.goal,
+    this.goalId,
   }) : super.internal(
-          () => EventNotifier()..goal = goal,
+          () => EventNotifier()..goalId = goalId,
           from: eventNotifierProvider,
           name: r'eventNotifierProvider',
           debugGetCreateSourceHash:
@@ -98,17 +98,17 @@ class EventNotifierProvider
               EventNotifierFamily._allTransitiveDependencies,
         );
 
-  final Goal? goal;
+  final String? goalId;
 
   @override
   bool operator ==(Object other) {
-    return other is EventNotifierProvider && other.goal == goal;
+    return other is EventNotifierProvider && other.goalId == goalId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, goal.hashCode);
+    hash = _SystemHash.combine(hash, goalId.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -118,7 +118,7 @@ class EventNotifierProvider
     covariant EventNotifier notifier,
   ) {
     return notifier.build(
-      goal: goal,
+      goalId: goalId,
     );
   }
 }
