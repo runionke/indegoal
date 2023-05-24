@@ -6,9 +6,11 @@ part of 'goal_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goalNotifierHash() => r'054a24f2574d26f064fe99f3b91b9415766f9103';
+String _$goalNotifierHash() => r'fcca88949487ed3dfaaf32de152e61ba7db984ce';
 
-/// See also [GoalNotifier].
+///goals sorted by end date
+///
+/// Copied from [GoalNotifier].
 @ProviderFor(GoalNotifier)
 final goalNotifierProvider =
     AsyncNotifierProvider<GoalNotifier, Iterable<Goal>>.internal(

@@ -10,7 +10,7 @@ class CreateEventView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: CreateEvent());
+    return const CreateEvent();
   }
 }
 
@@ -38,7 +38,6 @@ class _CreateEventState extends ConsumerState<CreateEvent> {
         WizardStep(
           builder: (_) {
             return Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 const Flexible(child: Text('When?')),
                 const SizedBox(
@@ -55,7 +54,6 @@ class _CreateEventState extends ConsumerState<CreateEvent> {
         WizardStep(
           builder: (_) {
             return Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 const Flexible(child: Text('How many minutes?')),
                 const SizedBox(
@@ -75,7 +73,6 @@ class _CreateEventState extends ConsumerState<CreateEvent> {
         WizardStep(
           builder: (_) {
             return Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 const Flexible(child: Text('Notes:')),
                 const SizedBox(

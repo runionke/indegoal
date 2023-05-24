@@ -24,7 +24,6 @@ class Editor extends StatelessWidget {
   Widget build(BuildContext context) {
     return BasicBox(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
           if (label != null)
             Align(
@@ -44,6 +43,7 @@ class Editor extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: child,
           ),
+          const Spacer(),
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

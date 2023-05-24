@@ -168,7 +168,7 @@ class __$$_goalCopyWithImpl<$Res> extends _$GoalCopyWithImpl<$Res, _$_goal>
 
 /// @nodoc
 @JsonSerializable()
-class _$_goal implements _goal {
+class _$_goal extends _goal {
   const _$_goal(
       {@JsonKey(includeToJson: false, includeFromJson: true, name: '\$id')
           required this.id,
@@ -176,7 +176,8 @@ class _$_goal implements _goal {
       required this.minutes,
       required this.period,
       required this.start,
-      required this.recurring});
+      required this.recurring})
+      : super._();
 
   factory _$_goal.fromJson(Map<String, dynamic> json) => _$$_goalFromJson(json);
 
@@ -240,7 +241,7 @@ class _$_goal implements _goal {
   }
 }
 
-abstract class _goal implements Goal {
+abstract class _goal extends Goal {
   const factory _goal(
       {@JsonKey(includeToJson: false, includeFromJson: true, name: '\$id')
           required final String id,
@@ -249,6 +250,7 @@ abstract class _goal implements Goal {
       required final int period,
       required final DateTime start,
       required final bool recurring}) = _$_goal;
+  const _goal._() : super._();
 
   factory _goal.fromJson(Map<String, dynamic> json) = _$_goal.fromJson;
 

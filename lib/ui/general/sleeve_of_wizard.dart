@@ -9,9 +9,12 @@ class SleeveOfWizard extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: child,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxHeight: 400),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: child,
+      ),
     );
   }
 }

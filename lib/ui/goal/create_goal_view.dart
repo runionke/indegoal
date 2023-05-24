@@ -9,9 +9,7 @@ class CreateGoalView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: CreateGoal(),
-    );
+    return const CreateGoal();
   }
 }
 
@@ -28,6 +26,7 @@ class _CreateGoalState extends ConsumerState<CreateGoal> {
   Widget build(BuildContext context) {
     return SleeveOfWizard(
         child: Wizard(
+      onCancel: () => context.go('/'),
       onComplete: () async {
         await ref.watch(goalNotifierProvider.notifier).create(goal);
         if (context.mounted) {
@@ -38,7 +37,6 @@ class _CreateGoalState extends ConsumerState<CreateGoal> {
         WizardStep(
           builder: (_) {
             return Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 NumberPicker(
                   value: goal.period,
@@ -55,12 +53,10 @@ class _CreateGoalState extends ConsumerState<CreateGoal> {
         WizardStep(
           builder: (_) {
             return Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
-                const Flexible(
-                    child: Text('Start Today or an alternate time?')),
-                const SizedBox(
-                  height: 20.0,
+                const Padding(
+                  padding: EdgeInsets.all(28.0),
+                  child: Text('Start Today or an alternate time?'),
                 ),
                 DateButton(
                   onSave: (value) =>
@@ -73,7 +69,6 @@ class _CreateGoalState extends ConsumerState<CreateGoal> {
         WizardStep(
           builder: (_) {
             return Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 NumberPicker(
                   value: goal.minutes,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portal/flutter_portal.dart';
 import 'package:go_router/go_router.dart';
 import 'package:indegoal/lib.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -34,7 +33,7 @@ GoRouter router(RouterRef ref) {
     routes: [
       ShellRoute(
           navigatorKey: _shellNavigatorKey,
-          builder: (context, state, child) => Portal(child: child),
+          builder: (context, state, child) => ViewShell(child: child),
           routes: [
             GoRoute(path: '/', builder: (context, state) => const HomeView()),
             GoRoute(
