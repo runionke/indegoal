@@ -2,26 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:indegoal/lib.dart';
-import 'package:indegoal/widgets/text_field_container.dart';
 import 'package:numberpicker/numberpicker.dart';
 
-class CreateEventView extends StatelessWidget {
-  const CreateEventView({super.key});
-
+class CreateEventView extends ConsumerStatefulWidget {
+  const CreateEventView({super.key, this.goalId});
+  final String? goalId;
   @override
-  Widget build(BuildContext context) {
-    return const CreateEvent();
-  }
+  ConsumerState<CreateEventView> createState() => _CreateEventViewState();
 }
 
-class CreateEvent extends ConsumerStatefulWidget {
-  const CreateEvent({super.key});
-
-  @override
-  ConsumerState<CreateEvent> createState() => _CreateEventState();
-}
-
-class _CreateEventState extends ConsumerState<CreateEvent> {
+class _CreateEventViewState extends ConsumerState<CreateEventView> {
   Event event = Event.empty();
 
   @override
@@ -29,7 +19,7 @@ class _CreateEventState extends ConsumerState<CreateEvent> {
     return SleeveOfWizard(
         child: Wizard(
       onComplete: () async {
-        await ref.watch(eventNotifierProvider.notifier).create(event);
+        await ref.watch(eventNotifierProvider().notifier).create(event);
         if (context.mounted) {
           context.go('/');
         }

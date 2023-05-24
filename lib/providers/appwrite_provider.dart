@@ -18,6 +18,7 @@ class Appwrite extends _$Appwrite {
         .setEndpoint('https://cloud.appwrite.io/v1')
         .setProject('indegoal');
 
+    Log.d('AAAA: QUERY: ${Query.equal('\$id', 'test')}');
     final account = Account(client);
     final database = Databases(client);
     return (account: account, client: client, database: database);
@@ -30,7 +31,7 @@ class Appwrite extends _$Appwrite {
   }
 
   Future<Iterable<Map<String, dynamic>>> list(
-      {required DbCollection collection}) async {
+      {required DbCollection collection, List<String>? queries}) async {
     Log.d('AppwriteNotifier-> list');
 
     final user = await state.account.get();
@@ -38,7 +39,10 @@ class Appwrite extends _$Appwrite {
     final response = await state.database.listDocuments(
       databaseId: AppwriteSettings.databaseId,
       collectionId: collection.name,
-      queries: [Query.equal('userId', user.$id)],
+      queries: [
+        Query.equal('userId', user.$id),
+        if (queries != null) ...queries,
+      ],
     );
     return response.documents.map((e) => e.data);
   }

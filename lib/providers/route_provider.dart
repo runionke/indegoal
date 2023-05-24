@@ -43,7 +43,9 @@ GoRouter router(RouterRef ref) {
                 builder: (context, state) => const CreateGoalView()),
             GoRoute(
                 path: '/cevent',
-                builder: (context, state) => const CreateEventView()),
+                builder: (context, state) => CreateEventView(
+                      goalId: state.queryParameters['goalId'],
+                    )),
             // ShellRoute(builder: (context, state, child) => child, routes: [
             //   GoRoute(
             //       path: '/builder/zones',

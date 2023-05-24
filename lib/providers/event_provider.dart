@@ -6,12 +6,12 @@ part 'event_provider.g.dart';
 @Riverpod(keepAlive: true)
 class EventNotifier extends _$EventNotifier {
   @override
-  Future<Iterable<Event>> build() async {
+  Future<Iterable<Event>> build({Goal? goal}) async {
     Log.d('EventNotifier-> build');
 
-    final data = await ref
-        .watch(appwriteProvider.notifier)
-        .list(collection: DbCollection.events);
+    final data = await ref.watch(appwriteProvider.notifier).list(
+        collection: DbCollection.events,
+        queries: goal != null ? ['equal("\$id", ["${goal.id}"])'] : null);
     return data.map((e) => Event.fromJson(e));
   }
 
