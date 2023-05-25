@@ -35,9 +35,10 @@ class GoalView extends ConsumerWidget {
               progressColor: Colors.blue,
               barRadius: const Radius.circular(9),
             ),
-            ref.watch(eventNotifierProvider(goalId: goal.id)).when(
+            ref.watch(eventNotifierProvider(goal: goal)).when(
                 data: (data) {
-                  final minutes = data.minutes == 0 ? 1 : data.minutes;
+                  Log.d('GoalView: total events: ${data.length}');
+                  final minutes = data.minutes;
                   Log.d(
                       'AAAAA G: ${goal.minutes}  Minutes: $minutes  : ${(minutes / goal.minutes)}');
                   return LinearPercentIndicator(

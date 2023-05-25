@@ -9,8 +9,6 @@ class ViewShell extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return Portal(
-        child: Scaffold(
-            appBar: AppBar(title: const Text('IndeGoal')), body: child));
+    return Portal(child: child);
   }
 }

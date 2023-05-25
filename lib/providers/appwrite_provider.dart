@@ -34,7 +34,6 @@ class Appwrite extends _$Appwrite {
     Log.d('AppwriteNotifier-> list');
 
     final user = await state.account.get();
-
     final response = await state.database.listDocuments(
       databaseId: AppwriteSettings.databaseId,
       collectionId: collection.name,

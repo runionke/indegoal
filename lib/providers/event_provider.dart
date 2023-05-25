@@ -1,3 +1,4 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:collection/collection.dart';
 import 'package:indegoal/lib.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -7,12 +8,29 @@ part 'event_provider.g.dart';
 @Riverpod(keepAlive: true)
 class EventNotifier extends _$EventNotifier {
   @override
-  Future<Iterable<Event>> build({String? goalId}) async {
+  Future<Iterable<Event>> build({Goal? goal}) async {
     Log.d('EventNotifier-> build');
 
+    if (goal != null) {
+      Log.d(
+          'Event Notifier with goal between: ${goal.start.midnight.toIso8601String()} -  ${goal.end.midnight.toIso8601String()})');
+    }
     final data = await ref.watch(appwriteProvider.notifier).list(
         collection: DbCollection.events,
-        queries: goalId != null ? ['equal("\$id", ["$goalId}"])'] : null);
+        queries: goal != null
+            ? [
+                Query.greaterThanEqual(
+                  'time',
+                  goal.start.midnight.toIso8601String(),
+                ),
+                Query.lessThanEqual(
+                    'time', goal.end.midnight.toIso8601String()),
+              ]
+            : null);
+
+    Log.d('Events retrieved from db: ${data.length}');
+    //between("time", [2023-05-25 09:45:36.377,2023-05-25 09:45:36.377]
+    //queries: goalId != null ? ['equal("\$id", ["$goalId}"])'] : null
     return data.map((e) => Event.fromJson(e));
   }
 
@@ -32,9 +50,7 @@ class EventNotifier extends _$EventNotifier {
 }
 
 extension IterableEventExtension on Iterable<Event> {
-  // Iterable<Event> get active =>
-  //     where((element) => element.end.isAfter(DateTime.now()));
   Iterable<Event> get sortByTime => sorted((a, b) => b.time.compareTo(a.time));
-  int get minutes =>
-      fold(0, (previousValue, element) => previousValue + element.duration);
+  int get minutes => fold<int>(
+      0, (previousValue, element) => previousValue + element.duration);
 }
