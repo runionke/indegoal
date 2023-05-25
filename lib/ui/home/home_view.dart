@@ -13,11 +13,16 @@ class HomeView extends ConsumerWidget {
             error,
             stackTrace: stackTrace,
           ),
-          data: (goals) => Stack(
-            children: [
-              if (goals.isEmpty) const NoGoal(),
-            ],
-          ),
+          data: (goals) {
+            final activeGoals = goals.active;
+            return Stack(
+              children: [
+                if (activeGoals.isEmpty) const NoGoal(),
+                if (activeGoals.isNotEmpty)
+                  GoalView(activeGoals.sortByEnd.first),
+              ],
+            );
+          },
         );
   }
 }

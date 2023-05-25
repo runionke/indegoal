@@ -1,6 +1,8 @@
 export 'event/create_event_view.dart';
 export 'general/sleeve_of_wizard.dart';
+export 'general/view_shell.dart';
 export 'goal/create_goal_view.dart';
+export 'goal/goal_view.dart';
 export 'home/home_view.dart';
 export 'home/no_goal.dart';
 export 'login/app_logo.dart';

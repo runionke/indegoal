@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:indegoal/lib.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -28,4 +29,12 @@ class EventNotifier extends _$EventNotifier {
         .delete(id: id, collection: DbCollection.events);
     ref.invalidateSelf();
   }
+}
+
+extension IterableEventExtension on Iterable<Event> {
+  // Iterable<Event> get active =>
+  //     where((element) => element.end.isAfter(DateTime.now()));
+  Iterable<Event> get sortByTime => sorted((a, b) => b.time.compareTo(a.time));
+  int get minutes =>
+      fold(0, (previousValue, element) => previousValue + element.duration);
 }
