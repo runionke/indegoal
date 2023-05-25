@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -22,7 +23,16 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
           child: Wizard(
         onCancel: () => context.go('/'),
         onComplete: () async {
-          await ref.watch(eventNotifierProvider().notifier).create(event);
+          //must pass the correct parameter goal, to invalidate and rebuild same provider
+          await ref
+              .watch(eventNotifierProvider(
+                  goal: ref
+                      .watch(goalNotifierProvider)
+                      .valueOrNull
+                      ?.firstWhereOrNull((element) {
+                return element.id == widget.goalId;
+              })).notifier)
+              .create(event);
           if (context.mounted) {
             context.go('/');
           }

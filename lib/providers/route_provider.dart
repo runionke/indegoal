@@ -44,7 +44,7 @@ GoRouter router(RouterRef ref) {
             GoRoute(
                 path: '/cevent/:goalId',
                 builder: (context, state) => CreateEventView(
-                      goalId: state.queryParameters['goalId'],
+                      goalId: state.pathParameters['goalId'],
                     )),
           ]),
     ],
