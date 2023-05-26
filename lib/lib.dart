@@ -1,5 +1,6 @@
 export 'main.dart';
 export 'model/auth.dart';
+export 'model/device.dart';
 export 'model/event.dart';
 export 'model/goal.dart';
 export 'model/user.dart';
@@ -23,6 +24,7 @@ export 'util/date_utils.dart';
 export 'util/log.dart';
 export 'widgets/basic_box.dart';
 export 'widgets/date_button.dart';
+export 'widgets/device.dart';
 export 'widgets/editor.dart';
 export 'widgets/err_widget.dart';
 export 'widgets/error_modal.dart';

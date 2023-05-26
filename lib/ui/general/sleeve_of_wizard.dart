@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indegoal/lib.dart';
 
 ///common application level wizard wrappings
 class SleeveOfWizard extends StatelessWidget {
@@ -9,11 +10,18 @@ class SleeveOfWizard extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(maxHeight: 400),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: child,
+    final device = Device.of(context).device;
+    return Center(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+            maxHeight: switch (device) {
+          SmallDevice() => 400,
+          LargeDevice() => double.infinity,
+        }),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: child,
+        ),
       ),
     );
   }

@@ -17,16 +17,26 @@ class MyApp extends StatelessWidget {
       child: Consumer(
         builder: (_, ref, __) {
           final router = ref.watch(routerProvider);
-          return MaterialApp.router(
-            title: 'indegoal',
-            debugShowCheckedModeBanner: false,
-            routeInformationProvider: router.routeInformationProvider,
-            routeInformationParser: router.routeInformationParser,
-            routerDelegate: router.routerDelegate,
-            theme: ThemeData(
-                colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-                useMaterial3: true,
-                extensions: const [ModalTheme.light]),
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              return Device(
+                device: constraints.maxWidth > 600
+                    ? const DeviceType.small()
+                    : const DeviceType.large(),
+                child: MaterialApp.router(
+                  title: 'indegoal',
+                  debugShowCheckedModeBanner: false,
+                  routeInformationProvider: router.routeInformationProvider,
+                  routeInformationParser: router.routeInformationParser,
+                  routerDelegate: router.routerDelegate,
+                  theme: ThemeData(
+                      colorScheme:
+                          ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+                      useMaterial3: true,
+                      extensions: const [ModalTheme.light]),
+                ),
+              );
+            },
           );
         },
       ),
