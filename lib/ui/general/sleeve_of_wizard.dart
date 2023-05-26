@@ -10,11 +10,10 @@ class SleeveOfWizard extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    final device = Device.of(context).device;
     return Center(
       child: ConstrainedBox(
         constraints: BoxConstraints(
-            maxHeight: switch (device) {
+            maxHeight: switch (Device.of(context).device) {
           SmallDevice() => 400,
           LargeDevice() => double.infinity,
         }),
