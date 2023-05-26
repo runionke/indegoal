@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:indegoal/lib.dart';
+import 'package:indegoal/ui/event/event_history_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'route_provider.g.dart';
 
-//final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 @riverpod
@@ -35,7 +35,17 @@ GoRouter router(RouterRef ref) {
           navigatorKey: _shellNavigatorKey,
           builder: (context, state, child) => ViewShell(child: child),
           routes: [
-            GoRoute(path: '/', builder: (context, state) => const HomeView()),
+            GoRoute(
+                path: '/',
+                builder: (context, state) => const HomeView(),
+                routes: [
+                  //nesting the route like this will allow back navigation even if page is refreshed
+                  GoRoute(
+                      path: 'hist/:goalId',
+                      builder: (context, state) => EventHistoryView(
+                            goalId: state.pathParameters['goalId'] ?? '',
+                          )),
+                ]),
             GoRoute(
                 path: '/auth', builder: (context, state) => const LoginView()),
             GoRoute(
@@ -44,7 +54,7 @@ GoRouter router(RouterRef ref) {
             GoRoute(
                 path: '/cevent/:goalId',
                 builder: (context, state) => CreateEventView(
-                      goalId: state.pathParameters['goalId'],
+                      goalId: state.pathParameters['goalId'] ?? '',
                     )),
           ]),
     ],

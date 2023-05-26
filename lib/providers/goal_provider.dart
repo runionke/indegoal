@@ -40,4 +40,5 @@ extension IterableGoalExtension on Iterable<Goal> {
   Iterable<Goal> get active =>
       where((element) => element.end.isAfter(DateTime.now()));
   Iterable<Goal> get sortByEnd => sorted((a, b) => b.end.compareTo(a.end));
+  Goal? withId(String id) => firstWhereOrNull((element) => element.id == id);
 }

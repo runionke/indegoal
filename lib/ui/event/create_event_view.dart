@@ -6,8 +6,8 @@ import 'package:indegoal/lib.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class CreateEventView extends ConsumerStatefulWidget {
-  const CreateEventView({super.key, this.goalId});
-  final String? goalId;
+  const CreateEventView({super.key, required this.goalId});
+  final String goalId;
   @override
   ConsumerState<CreateEventView> createState() => _CreateEventViewState();
 }
@@ -26,12 +26,11 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
           //must pass the correct parameter goal, to invalidate and rebuild same provider
           await ref
               .watch(eventNotifierProvider(
-                  goal: ref
-                      .watch(goalNotifierProvider)
-                      .valueOrNull
-                      ?.firstWhereOrNull((element) {
-                return element.id == widget.goalId;
-              })).notifier)
+                goal: ref
+                    .watch(goalNotifierProvider)
+                    .valueOrNull
+                    ?.withId(widget.goalId),
+              ).notifier)
               .create(event);
           if (context.mounted) {
             context.go('/');

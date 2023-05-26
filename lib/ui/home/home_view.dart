@@ -18,6 +18,24 @@ class HomeView extends ConsumerWidget {
           final activeGoals = goals.active;
           return Scaffold(
             appBar: AppBar(title: const Text('IndeGoal')),
+            endDrawer: Drawer(
+              width: 100,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 18.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          context.pop();
+                          context.push(
+                              '/hist/${activeGoals.sortByEnd.firstOrNull?.id}');
+                        },
+                        child: const Text('History'))
+                  ],
+                ),
+              ),
+            ),
             body: Stack(
               children: [
                 if (activeGoals.isEmpty) const NoGoal(),
@@ -28,8 +46,8 @@ class HomeView extends ConsumerWidget {
             floatingActionButton: activeGoals.isNotEmpty
                 ? FloatingActionButton(
                     child: const Icon(Icons.add),
-                    onPressed: () =>
-                        context.go('/cevent/${activeGoals.sortByEnd.first.id}'),
+                    onPressed: () => context
+                        .push('/cevent/${activeGoals.sortByEnd.first.id}'),
                   )
                 : null,
           );
