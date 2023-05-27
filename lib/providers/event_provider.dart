@@ -37,9 +37,20 @@ class EventNotifier extends _$EventNotifier {
   }
 
   Future<void> create(Event event, {List<Uint8List>? images}) async {
-    await ref
-        .watch(appwriteProvider.notifier)
-        .create(data: event.toJson(), collection: DbCollection.events);
+    final notifier = ref.watch(appwriteProvider.notifier);
+
+    //upload images to storage and add id list to event
+    if (images != null && images.isNotEmpty) {
+      Log.d('EventProvider -> uploading images to storage');
+      final imgList = await notifier.uploadToStorage(
+          files: images, bucketId: AppwriteSettings.eventImageBucket);
+      event = event.copyWith(photos: imgList.toList());
+    }
+
+    await notifier.create(
+      data: event.toJson(),
+      collection: DbCollection.events,
+    );
     ref.invalidateSelf();
   }
 

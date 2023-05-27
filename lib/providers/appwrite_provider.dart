@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:indegoal/lib.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -8,12 +10,17 @@ class AppwriteSettings {
   static String databaseId = 'goaldb';
   static String eventCollection = 'events';
   static String goalCollection = 'goals';
+  static String eventImageBucket = 'event_images';
 }
 
 @Riverpod(keepAlive: true)
 class Appwrite extends _$Appwrite {
   @override
-  ({Client client, Account account, Databases database}) build() {
+  ({
+    Client client,
+    Account account,
+    Databases database,
+  }) build() {
     final client = Client()
         .setEndpoint('https://cloud.appwrite.io/v1')
         .setProject('indegoal');
@@ -64,13 +71,33 @@ class Appwrite extends _$Appwrite {
     );
   }
 
-  Future<void> delete(
-      {required String id, required DbCollection collection}) async {
+  Future<void> delete({
+    required String id,
+    required DbCollection collection,
+  }) async {
     await state.database.deleteDocument(
       databaseId: AppwriteSettings.databaseId,
       collectionId: collection.name,
       documentId: id,
     );
+  }
+
+  //upload files to storage bucket and return ids.
+  Future<Iterable<String>> uploadToStorage({
+    required List<Uint8List> files,
+    required String bucketId,
+  }) async {
+    final storage = Storage(state.client);
+    final user = (await state.account.get()).$id;
+    final futures = files.map((e) {
+      return storage.createFile(
+          bucketId: bucketId,
+          fileId: 'unique()',
+          file: InputFile.fromBytes(bytes: e, filename: '$user.jpg'));
+    });
+    //await the futures and return the generated file ids
+    final stored = await Future.wait(futures);
+    return stored.map((e) => e.$id);
   }
 }
 
