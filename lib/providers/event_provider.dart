@@ -4,7 +4,7 @@ import 'package:appwrite/appwrite.dart';
 import 'package:collection/collection.dart';
 import 'package:indegoal/lib.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-
+import 'package:indegoal/util/date_utils.dart';
 part 'event_provider.g.dart';
 
 @Riverpod(keepAlive: true)
@@ -64,8 +64,25 @@ class EventNotifier extends _$EventNotifier {
 
 extension IterableEventExtension on Iterable<Event> {
   Iterable<Event> get sortByTime => sorted((a, b) => b.time.compareTo(a.time));
+
   int get minutes => fold<int>(
       0, (previousValue, element) => previousValue + element.duration);
+
+  ///combines minutes that fall on same day, for proper charting
+  Iterable<Event> get groupTotaled {
+    final grouped = <Event>[];
+
+    for (final event in sortByTime) {
+      final last = grouped.lastOrNull;
+      if (last != null && event.time.sameDay(last.time)) {
+        grouped.remove(last);
+        grouped.add(last.copyWith(duration: last.duration + event.duration));
+      } else {
+        grouped.add(event);
+      }
+    }
+    return grouped;
+  }
 }
 
 @riverpod

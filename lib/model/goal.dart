@@ -36,3 +36,7 @@ class Goal with _$Goal {
         userId: '',
       );
 }
+
+extension GoalExtention on Goal {
+  int get daysLeft => DateTime.now().difference(start).inDays + 1;
+}

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:indegoal/lib.dart';
-import 'package:indegoal/ui/event/event_history_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'route_provider.g.dart';
