@@ -19,21 +19,23 @@ class GoalView extends ConsumerWidget {
         Text(
             'Percent comp: ${(goal.end.add(const Duration(days: 2)).difference(DateTime.now()).inDays / goal.end.difference(goal.start).inDays)}'),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            LinearPercentIndicator(
-              center: Text(
-                  '${goal.end.add(const Duration(days: 2)).difference(DateTime.now()).inDays} day(s) left.'),
-              width: 140.0,
-              lineHeight: 24.0,
-              percent: goal.end
-                      .add(const Duration(days: 2))
-                      .difference(DateTime.now())
-                      .inDays /
-                  goal.end.difference(goal.start).inDays,
-              backgroundColor: Colors.grey,
-              progressColor: Colors.blue,
-              barRadius: const Radius.circular(9),
+            Expanded(
+              child: LinearPercentIndicator(
+                center: Text(
+                    '${goal.end.add(const Duration(days: 2)).difference(DateTime.now()).inDays} day(s) left.'),
+                width: 140.0,
+                lineHeight: 24.0,
+                percent: goal.end
+                        .add(const Duration(days: 2))
+                        .difference(DateTime.now())
+                        .inDays /
+                    goal.end.difference(goal.start).inDays,
+                backgroundColor: Colors.grey,
+                progressColor: Colors.blue,
+                barRadius: const Radius.circular(9),
+              ),
             ),
             ref.watch(eventNotifierProvider(goal: goal)).when(
                 data: (data) {

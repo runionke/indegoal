@@ -6,7 +6,7 @@ part of 'appwrite_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appwriteHash() => r'1ca19123cf092411d1b6d1ef155d3353e8be76c7';
+String _$appwriteHash() => r'ae83f495236c6cc2d7cdc4dfd2e7a829ae69be72';
 
 /// See also [Appwrite].
 @ProviderFor(Appwrite)

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'event.freezed.dart';
@@ -7,7 +8,7 @@ part 'event.g.dart';
 class Event with _$Event {
   const factory Event({
     @JsonKey(includeToJson: false, includeFromJson: true, name: '\$id')
-        required String id,
+    required String id,
     required String userId,
     required DateTime time,
 

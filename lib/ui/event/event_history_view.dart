@@ -31,15 +31,36 @@ class EventHistoryView extends ConsumerWidget {
   }
 }
 
-class EventHistoryItem extends StatelessWidget {
+class EventHistoryItem extends ConsumerWidget {
   const EventHistoryItem(this.event, {super.key});
   final Event event;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return ListTile(
       leading: Text(DateFormat.yMd().add_jm().format(event.time)),
-      title: Text('Minutes: ${event.duration}'),
+      title: Row(
+        children: [
+          Text('Minutes: ${event.duration}'),
+          Expanded(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 50),
+              child: ref.watch(eventImagesProvider(event)).when(
+                    data: (images) {
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: images.length,
+                        itemBuilder: (context, index) =>
+                            Image.memory(images[index]),
+                      );
+                    },
+                    error: (error, stackTrace) => ErrWidget(error),
+                    loading: () => const Loading(),
+                  ),
+            ),
+          )
+        ],
+      ),
       subtitle: Text(event.notes),
     );
   }

@@ -67,3 +67,13 @@ extension IterableEventExtension on Iterable<Event> {
   int get minutes => fold<int>(
       0, (previousValue, element) => previousValue + element.duration);
 }
+
+@riverpod
+Future<List<Uint8List>> eventImages(EventImagesRef ref, Event event) async {
+  return (await ref.watch(appwriteProvider.notifier).previewFromStorage(
+          bucketId: AppwriteSettings.eventImageBucket,
+          items: event.photos,
+          height: 50,
+          width: 50))
+      .toList();
+}

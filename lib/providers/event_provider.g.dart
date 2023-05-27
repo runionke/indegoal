@@ -6,7 +6,7 @@ part of 'event_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventNotifierHash() => r'0c88a57d158a15b2cf9b722237860b57c92ea873';
+String _$eventImagesHash() => r'aad8aef3ea1dd794daefdf3304c927f4ad8b4766';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -28,6 +28,89 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
+
+typedef EventImagesRef = AutoDisposeFutureProviderRef<List<Uint8List>>;
+
+/// See also [eventImages].
+@ProviderFor(eventImages)
+const eventImagesProvider = EventImagesFamily();
+
+/// See also [eventImages].
+class EventImagesFamily extends Family<AsyncValue<List<Uint8List>>> {
+  /// See also [eventImages].
+  const EventImagesFamily();
+
+  /// See also [eventImages].
+  EventImagesProvider call(
+    Event event,
+  ) {
+    return EventImagesProvider(
+      event,
+    );
+  }
+
+  @override
+  EventImagesProvider getProviderOverride(
+    covariant EventImagesProvider provider,
+  ) {
+    return call(
+      provider.event,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'eventImagesProvider';
+}
+
+/// See also [eventImages].
+class EventImagesProvider extends AutoDisposeFutureProvider<List<Uint8List>> {
+  /// See also [eventImages].
+  EventImagesProvider(
+    this.event,
+  ) : super.internal(
+          (ref) => eventImages(
+            ref,
+            event,
+          ),
+          from: eventImagesProvider,
+          name: r'eventImagesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$eventImagesHash,
+          dependencies: EventImagesFamily._dependencies,
+          allTransitiveDependencies:
+              EventImagesFamily._allTransitiveDependencies,
+        );
+
+  final Event event;
+
+  @override
+  bool operator ==(Object other) {
+    return other is EventImagesProvider && other.event == event;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, event.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+String _$eventNotifierHash() => r'1bc6d43230fef572d4fcd02b523f8f51fafb2364';
 
 abstract class _$EventNotifier extends BuildlessAsyncNotifier<Iterable<Event>> {
   late final Goal? goal;

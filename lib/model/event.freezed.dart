@@ -166,7 +166,7 @@ class __$$_eventCopyWithImpl<$Res> extends _$EventCopyWithImpl<$Res, _$_event>
 
 /// @nodoc
 @JsonSerializable()
-class _$_event implements _event {
+class _$_event with DiagnosticableTreeMixin implements _event {
   const _$_event(
       {@JsonKey(includeToJson: false, includeFromJson: true, name: '\$id')
           required this.id,
@@ -208,8 +208,21 @@ class _$_event implements _event {
   final String notes;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'Event(id: $id, userId: $userId, time: $time, duration: $duration, photos: $photos, notes: $notes)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Event'))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('time', time))
+      ..add(DiagnosticsProperty('duration', duration))
+      ..add(DiagnosticsProperty('photos', photos))
+      ..add(DiagnosticsProperty('notes', notes));
   }
 
   @override

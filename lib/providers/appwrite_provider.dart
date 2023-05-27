@@ -89,15 +89,33 @@ class Appwrite extends _$Appwrite {
   }) async {
     final storage = Storage(state.client);
     final user = (await state.account.get()).$id;
-    final futures = files.map((e) {
+
+    //createfiles, await and return the generated file ids
+    final uploads = await Future.wait(files.map((e) {
       return storage.createFile(
           bucketId: bucketId,
           fileId: 'unique()',
           file: InputFile.fromBytes(bytes: e, filename: '$user.jpg'));
-    });
-    //await the futures and return the generated file ids
-    final stored = await Future.wait(futures);
-    return stored.map((e) => e.$id);
+    }));
+    return uploads.map((e) => e.$id);
+  }
+
+  ///retrieve image preview adjust with optional [height] and [width]
+  Future<Iterable<Uint8List>> previewFromStorage({
+    required String bucketId,
+    required Iterable<String> items,
+    double? height,
+    double? width,
+  }) async {
+    final storage = Storage(state.client);
+
+    final files = Future.wait(items.map((fileId) => storage.getFilePreview(
+          bucketId: bucketId,
+          fileId: fileId,
+          height: height?.toInt(),
+          width: width?.toInt(),
+        )));
+    return files;
   }
 }
 
