@@ -39,6 +39,7 @@ class EventHistoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Text(DateFormat.yMd().add_jm().format(event.time)),
+      title: Text('Minutes: ${event.duration}'),
       subtitle: Text(event.notes),
     );
   }

@@ -1,4 +1,4 @@
-import 'package:collection/collection.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +14,7 @@ class CreateEventView extends ConsumerStatefulWidget {
 
 class _CreateEventViewState extends ConsumerState<CreateEventView> {
   Event event = Event.empty();
+  List<Uint8List>? eventImages;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
                     .valueOrNull
                     ?.withId(widget.goalId),
               ).notifier)
-              .create(event);
+              .create(event, images: eventImages);
           if (context.mounted) {
             context.go('/');
           }
@@ -89,6 +90,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
                           setState(() => event = event.copyWith(notes: value)),
                     ),
                   ),
+                  EventImagePicker(onPick: (images) => eventImages = images),
                 ],
               );
             },

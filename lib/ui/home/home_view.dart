@@ -44,7 +44,8 @@ class HomeView extends ConsumerWidget {
               ],
             ),
             floatingActionButton: activeGoals.isNotEmpty
-                ? FloatingActionButton(
+                ? FloatingActionButton.large(
+                    tooltip: 'Add Event',
                     child: const Icon(Icons.add),
                     onPressed: () => context
                         .push('/cevent/${activeGoals.sortByEnd.first.id}'),

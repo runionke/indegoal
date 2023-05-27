@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:appwrite/appwrite.dart';
 import 'package:collection/collection.dart';
 import 'package:indegoal/lib.dart';
@@ -34,7 +36,7 @@ class EventNotifier extends _$EventNotifier {
     return data.map((e) => Event.fromJson(e));
   }
 
-  Future<void> create(Event event) async {
+  Future<void> create(Event event, {List<Uint8List>? images}) async {
     await ref
         .watch(appwriteProvider.notifier)
         .create(data: event.toJson(), collection: DbCollection.events);
