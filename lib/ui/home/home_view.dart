@@ -20,21 +20,7 @@ class HomeView extends ConsumerWidget {
             appBar: AppBar(title: const Text('IndeGoal')),
             endDrawer: Drawer(
               width: 100,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          context.pop();
-                          context.push(
-                              '/hist/${activeGoals.sortByEnd.firstOrNull?.id}');
-                        },
-                        child: const Text('History'))
-                  ],
-                ),
-              ),
+              child: RightDrawer(goal: goals.active.firstOrNull),
             ),
             body: Stack(
               children: [
