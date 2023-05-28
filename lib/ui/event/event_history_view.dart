@@ -93,27 +93,6 @@ class EventHistoryItem extends ConsumerWidget {
         ],
       ),
     );
-
-//     return ListTile(
-//       onTap: () => context.push('/hist/$goalId/images/${event.id}'),
-//       leading: Text(event.duration.toString()),
-//       // subtitle: Text(
-//       //      DateFormat.yMd().add_jm().format(event.time)), //Text(event.notes),
-//       subtitle: ConstrainedBox(
-//         constraints: const BoxConstraints(maxHeight: 50),
-//         child: ref.watch(eventImagesProvider(event: event)).when(
-//               data: (images) {
-//                 return ListView.builder(
-//                   scrollDirection: Axis.horizontal,
-//                   itemCount: images.length,
-//                   itemBuilder: (context, index) => Image.memory(images[index]),
-//                 );
-//               },
-//               error: (error, stackTrace) => ErrWidget(error),
-//               loading: () => const Loading(),
-//             ),
-//       ),
-//     );
   }
 }
 
