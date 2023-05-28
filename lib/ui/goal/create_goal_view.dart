@@ -31,12 +31,17 @@ class _CreateGoalViewState extends ConsumerState<CreateGoalView> {
             builder: (_) {
               return Column(
                 children: [
-                  NumberPicker(
-                    value: goal.period,
-                    minValue: 1,
-                    maxValue: 100,
-                    onChanged: (value) =>
-                        setState(() => goal = goal.copyWith(period: value)),
+                  Expanded(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) => NumberPicker(
+                        value: goal.period,
+                        minValue: 1,
+                        maxValue: 100,
+                        itemHeight: constraints.maxHeight / 2,
+                        onChanged: (value) =>
+                            setState(() => goal = goal.copyWith(period: value)),
+                      ),
+                    ),
                   ),
                   const Text('Select the number of days to reach your goal.'),
                 ],

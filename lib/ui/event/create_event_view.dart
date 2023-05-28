@@ -57,18 +57,23 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
           WizardStep(
             builder: (_) {
               return Column(
-                mainAxisSize: MainAxisSize.min,
+                //mainAxisSize: MainAxisSize.min,
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(bottom: 20.0),
                     child: Text('How many minutes?'),
                   ),
-                  NumberPicker(
-                    value: event.duration,
-                    minValue: 1,
-                    maxValue: 100,
-                    onChanged: (value) =>
-                        setState(() => event = event.copyWith(duration: value)),
+                  Expanded(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) => NumberPicker(
+                        value: event.duration,
+                        minValue: 1,
+                        maxValue: 100,
+                        itemHeight: constraints.maxHeight / 4,
+                        onChanged: (value) => setState(
+                            () => event = event.copyWith(duration: value)),
+                      ),
+                    ),
                   ),
                 ],
               );

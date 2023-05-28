@@ -39,11 +39,12 @@ class Editor extends StatelessWidget {
                 ),
               ),
             ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: child,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: child,
+            ),
           ),
-          const Spacer(),
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
