@@ -18,12 +18,13 @@ class RightDrawer extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          TextButton(
-              onPressed: () {
-                context.pop();
-                context.push('/hist/${goal?.id}');
-              },
-              child: const Text('History')),
+          if (goal != null)
+            TextButton(
+                onPressed: () {
+                  context.pop();
+                  context.push('/hist/${goal?.id}');
+                },
+                child: const Text('Event History')),
           const Divider(),
           TextButton(
               onPressed: () =>

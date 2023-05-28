@@ -19,7 +19,7 @@ class HomeView extends ConsumerWidget {
           return Scaffold(
             appBar: AppBar(title: const Text('IndeGoal')),
             endDrawer: Drawer(
-              width: 100,
+              width: 120,
               child: RightDrawer(goal: goals.active.firstOrNull),
             ),
             body: Stack(

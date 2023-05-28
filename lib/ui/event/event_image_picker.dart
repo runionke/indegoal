@@ -33,14 +33,31 @@ class _EventImagePickerState extends State<EventImagePicker> {
                 ))
           ],
         ),
-        TextButton(
-            onPressed: () async {
-              images.addAll(await ImagePicker().pickMultiImage());
-              widget.onPick(
-                  await Future.wait(images.map((e) => e.readAsBytes())));
-              setState(() {});
-            },
-            child: const Text('Images')),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                  onPressed: () async {
+                    images.addAll(await ImagePicker().pickMultiImage());
+                    widget.onPick(
+                        await Future.wait(images.map((e) => e.readAsBytes())));
+                    setState(() {});
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.image),
+                        Text('Add Images'),
+                      ],
+                    ),
+                  )),
+            ],
+          ),
+        ),
       ],
     );
   }
