@@ -18,14 +18,11 @@ class GoalTimeChart extends ConsumerWidget {
               data: (events) => DChartTime(
                 chartRender: DRenderBar(),
                 measureLabel: (value) => '$value',
-                domainLabel: (dateTime) {
-                  // [DateFormat] from intl package
-                  return DateFormat('d ').format(dateTime!);
-                },
+                domainLabel: (dateTime) => DateFormat('d ').format(dateTime!),
                 groupData: [
                   DChartTimeGroup(
                     id: 'Events',
-                    color: Colors.blue,
+                    color: Theme.of(context).colorScheme.tertiary,
                     data: events.groupTotaled
                         .map((e) =>
                             DChartTimeData(time: e.time, value: e.duration))

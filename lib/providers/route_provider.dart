@@ -42,7 +42,16 @@ GoRouter router(RouterRef ref) {
                       path: 'hist/:goalId',
                       builder: (context, state) => EventHistoryView(
                             goalId: state.pathParameters['goalId'] ?? '',
-                          )),
+                          ),
+                      routes: [
+                        GoRoute(
+                            path: 'images/:eventId',
+                            builder: (context, state) => EventImageListView(
+                                  goalId: state.pathParameters['goalId'] ?? '',
+                                  eventId:
+                                      state.pathParameters['eventId'] ?? '',
+                                )),
+                      ]),
                 ]),
             GoRoute(
                 path: '/auth', builder: (context, state) => const LoginView()),

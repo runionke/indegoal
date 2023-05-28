@@ -6,7 +6,7 @@ part of 'event_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventImagesHash() => r'aad8aef3ea1dd794daefdf3304c927f4ad8b4766';
+String _$eventImagesHash() => r'0efa8c9825093c347e9e573b110b3ac1e4f7a48e';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,21 +31,33 @@ class _SystemHash {
 
 typedef EventImagesRef = AutoDisposeFutureProviderRef<List<Uint8List>>;
 
-/// See also [eventImages].
+///accepts [event], or [eventId] and [goalId]
+///
+/// Copied from [eventImages].
 @ProviderFor(eventImages)
 const eventImagesProvider = EventImagesFamily();
 
-/// See also [eventImages].
+///accepts [event], or [eventId] and [goalId]
+///
+/// Copied from [eventImages].
 class EventImagesFamily extends Family<AsyncValue<List<Uint8List>>> {
-  /// See also [eventImages].
+  ///accepts [event], or [eventId] and [goalId]
+  ///
+  /// Copied from [eventImages].
   const EventImagesFamily();
 
-  /// See also [eventImages].
-  EventImagesProvider call(
-    Event event,
-  ) {
+  ///accepts [event], or [eventId] and [goalId]
+  ///
+  /// Copied from [eventImages].
+  EventImagesProvider call({
+    Event? event,
+    String? eventId,
+    String? goalId,
+  }) {
     return EventImagesProvider(
-      event,
+      event: event,
+      eventId: eventId,
+      goalId: goalId,
     );
   }
 
@@ -54,7 +66,9 @@ class EventImagesFamily extends Family<AsyncValue<List<Uint8List>>> {
     covariant EventImagesProvider provider,
   ) {
     return call(
-      provider.event,
+      event: provider.event,
+      eventId: provider.eventId,
+      goalId: provider.goalId,
     );
   }
 
@@ -73,15 +87,23 @@ class EventImagesFamily extends Family<AsyncValue<List<Uint8List>>> {
   String? get name => r'eventImagesProvider';
 }
 
-/// See also [eventImages].
+///accepts [event], or [eventId] and [goalId]
+///
+/// Copied from [eventImages].
 class EventImagesProvider extends AutoDisposeFutureProvider<List<Uint8List>> {
-  /// See also [eventImages].
-  EventImagesProvider(
+  ///accepts [event], or [eventId] and [goalId]
+  ///
+  /// Copied from [eventImages].
+  EventImagesProvider({
     this.event,
-  ) : super.internal(
+    this.eventId,
+    this.goalId,
+  }) : super.internal(
           (ref) => eventImages(
             ref,
-            event,
+            event: event,
+            eventId: eventId,
+            goalId: goalId,
           ),
           from: eventImagesProvider,
           name: r'eventImagesProvider',
@@ -94,17 +116,126 @@ class EventImagesProvider extends AutoDisposeFutureProvider<List<Uint8List>> {
               EventImagesFamily._allTransitiveDependencies,
         );
 
-  final Event event;
+  final Event? event;
+  final String? eventId;
+  final String? goalId;
 
   @override
   bool operator ==(Object other) {
-    return other is EventImagesProvider && other.event == event;
+    return other is EventImagesProvider &&
+        other.event == event &&
+        other.eventId == eventId &&
+        other.goalId == goalId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, event.hashCode);
+    hash = _SystemHash.combine(hash, eventId.hashCode);
+    hash = _SystemHash.combine(hash, goalId.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+String _$eventHash() => r'bd4ff11935b01bbbf559496aa65b8297c7888f29';
+typedef EventRef = AutoDisposeFutureProviderRef<Event>;
+
+///event from [goalId] and [eventId] - throws exception if not found
+///
+/// Copied from [event].
+@ProviderFor(event)
+const eventProvider = EventFamily();
+
+///event from [goalId] and [eventId] - throws exception if not found
+///
+/// Copied from [event].
+class EventFamily extends Family<AsyncValue<Event>> {
+  ///event from [goalId] and [eventId] - throws exception if not found
+  ///
+  /// Copied from [event].
+  const EventFamily();
+
+  ///event from [goalId] and [eventId] - throws exception if not found
+  ///
+  /// Copied from [event].
+  EventProvider call({
+    required String goalId,
+    required String eventId,
+  }) {
+    return EventProvider(
+      goalId: goalId,
+      eventId: eventId,
+    );
+  }
+
+  @override
+  EventProvider getProviderOverride(
+    covariant EventProvider provider,
+  ) {
+    return call(
+      goalId: provider.goalId,
+      eventId: provider.eventId,
+    );
+  }
+
+  static const Iterable<ProviderOrFamily>? _dependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'eventProvider';
+}
+
+///event from [goalId] and [eventId] - throws exception if not found
+///
+/// Copied from [event].
+class EventProvider extends AutoDisposeFutureProvider<Event> {
+  ///event from [goalId] and [eventId] - throws exception if not found
+  ///
+  /// Copied from [event].
+  EventProvider({
+    required this.goalId,
+    required this.eventId,
+  }) : super.internal(
+          (ref) => event(
+            ref,
+            goalId: goalId,
+            eventId: eventId,
+          ),
+          from: eventProvider,
+          name: r'eventProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$eventHash,
+          dependencies: EventFamily._dependencies,
+          allTransitiveDependencies: EventFamily._allTransitiveDependencies,
+        );
+
+  final String goalId;
+  final String eventId;
+
+  @override
+  bool operator ==(Object other) {
+    return other is EventProvider &&
+        other.goalId == goalId &&
+        other.eventId == eventId;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, goalId.hashCode);
+    hash = _SystemHash.combine(hash, eventId.hashCode);
 
     return _SystemHash.finish(hash);
   }
