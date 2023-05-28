@@ -38,7 +38,6 @@ GoRouter router(RouterRef ref) {
                 path: '/',
                 builder: (context, state) => const HomeView(),
                 routes: [
-                  //nesting the route like this will allow back navigation even if page is refreshed
                   GoRoute(
                       path: 'hist/:goalId',
                       builder: (context, state) => EventHistoryView(

@@ -4,7 +4,6 @@ import 'package:appwrite/appwrite.dart';
 import 'package:collection/collection.dart';
 import 'package:indegoal/lib.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:indegoal/util/date_utils.dart';
 part 'event_provider.g.dart';
 
 @Riverpod(keepAlive: true)

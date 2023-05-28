@@ -1,62 +1,89 @@
-import 'package:d_chart/d_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:indegoal/lib.dart';
-import 'package:indegoal/ui/goal/goal_time_chart.dart';
+import 'package:intl/intl.dart';
+
+const topConstraints = BoxConstraints(maxWidth: 400, maxHeight: 200);
+const chartConstraints = BoxConstraints(maxWidth: 400, maxHeight: 300);
 
 class GoalView extends ConsumerWidget {
   const GoalView(this.goal, {super.key});
   final Goal goal;
   @override
   Widget build(BuildContext context, ref) {
-    return Column(
+    return ListView(
       children: [
-        Text('Start: ${goal.start}'),
-        Text('Ends: ${goal.end.toLocal()}'),
-        Text('left: ${goal.daysLeft}'),
-        Text('goal: ${goal.minutes}'),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            SizedBox(
-              width: 100,
-              height: 20,
-              child: DChartSingleBar(
-                forgroundLabel: Text('${(goal.period - goal.daysLeft)}'),
-                backgroundLabel: Text(goal.period.toString()),
-                backgroundColor: Colors.grey,
-                forgroundColor: Colors.blue,
-                value: (goal.period - goal.daysLeft).toDouble(),
-                max: goal.period.toDouble(),
-                radius: const BorderRadius.all(Radius.circular(8)),
+        Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: ConstrainedBox(
+            constraints: topConstraints,
+            child: Card(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Flex(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      direction: switch (Device.of(context).device) {
+                        SmallDevice() => Axis.horizontal,
+                        LargeDevice() => Axis.vertical,
+                      },
+                      children: [
+                        Text(
+                            'Started on ${DateFormat("EEE, MMM d, ''yy").format(goal.start)}'),
+                        Text(
+                            'Ending on:  ${DateFormat("EEE, MMM d, ''yy").format(goal.end)}'),
+                      ],
+                    ),
+                  ),
+                  ProgressWidget(
+                    title: 'Days Left',
+                    foreLabel: '${(goal.period - goal.daysLeft)}',
+                    backLabel: goal.period.toString(),
+                    value: (goal.period - goal.daysLeft).toDouble(),
+                    max: goal.period.toDouble(),
+                  ),
+                  ref.watch(eventNotifierProvider(goal: goal)).when(
+                      data: (data) {
+                        Log.d('GoalView: total events: ${data.length}');
+                        final minutes = data.minutes;
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ProgressWidget(
+                              title: 'Minutes Completed',
+                              foreLabel: minutes.toString(),
+                              backLabel: goal.minutes.toString(),
+                              value: minutes.toDouble(),
+                              max: goal.minutes.toDouble(),
+                            ),
+                            if (minutes >= goal.minutes)
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                        'You\'ve completed your goal of ${goal.minutes} minutes!'),
+                                    const Icon(Icons.assist_walker_sharp)
+                                  ],
+                                ),
+                              )
+                          ],
+                        );
+                      },
+                      error: (error, stackTrace) => ErrWidget(error),
+                      loading: () => const Loading()),
+                ],
               ),
             ),
-            ref.watch(eventNotifierProvider(goal: goal)).when(
-                data: (data) {
-                  Log.d('GoalView: total events: ${data.length}');
-                  final minutes = data.minutes;
-                  Log.d(
-                      'AAAAA G: ${goal.minutes}  Minutes: $minutes  : ${(minutes / goal.minutes)}');
-
-                  return SizedBox(
-                    width: 100,
-                    height: 20,
-                    child: DChartSingleBar(
-                      forgroundLabel: Text(minutes.toString()),
-                      backgroundLabel: Text(goal.minutes.toString()),
-                      backgroundColor: Colors.grey,
-                      forgroundColor: Colors.blue,
-                      value: minutes.toDouble(),
-                      max: goal.minutes.toDouble(),
-                      radius: const BorderRadius.all(Radius.circular(8)),
-                    ),
-                  );
-                },
-                error: (error, stackTrace) => ErrWidget(error),
-                loading: () => const Loading()),
-          ],
+          ),
         ),
-        SizedBox(width: 200, height: 200, child: GoalTimeChart(goal)),
+        Padding(
+          padding: const EdgeInsets.all(18.0),
+          child: ConstrainedBox(
+              constraints: chartConstraints, child: GoalTimeChart(goal)),
+        ),
       ],
     );
   }
