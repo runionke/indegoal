@@ -31,10 +31,19 @@ class Appwrite extends _$Appwrite {
   }
 
   Future<void> oauthSession(String provider) async {
+    /* 
+    when calling this, it will open a second tab, then redirect. 
+    the choice is whether to land on a page that instructs the user to close the tab
+    or just ignore it. I think the two pages approach seems preferable, because on mobile it's a
+    bit awkward to close the extra screen.
+    */
     await state.account.createOAuth2Session(
-        provider: provider,
-        success: 'https://indegoal.com/auth/complete',
-        failure: 'https://indegoal.com/auth/complete');
+      provider: provider,
+      success: 'https://indegoal.com',
+      failure: 'https://indegoal.com',
+      // success: 'https://indegoal.com/auth/complete',
+      // failure: 'https://indegoal.com/auth/complete',
+    );
   }
 
   Future<Iterable<Map<String, dynamic>>> list(
