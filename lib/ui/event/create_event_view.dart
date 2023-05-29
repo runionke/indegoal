@@ -44,7 +44,10 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(bottom: 20.0),
-                    child: Text('When?'),
+                    child: Text(
+                      'When did you start?',
+                      textScaleFactor: 3,
+                    ),
                   ),
                   DateButton(
                     onSave: (value) =>
@@ -61,7 +64,10 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.only(bottom: 20.0),
-                    child: Text('How many minutes?'),
+                    child: Text(
+                      'For how many minutes?',
+                      textScaleFactor: 2.7,
+                    ),
                   ),
                   Expanded(
                     child: LayoutBuilder(
@@ -69,6 +75,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
                         value: event.duration,
                         minValue: 1,
                         maxValue: 100,
+                        textStyle: const TextStyle(fontSize: 40),
                         itemHeight: constraints.maxHeight / 4,
                         onChanged: (value) => setState(
                             () => event = event.copyWith(duration: value)),
@@ -83,12 +90,10 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
             builder: (_) {
               return Column(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(bottom: 2.0),
-                    child: Text('Notes:'),
-                  ),
                   TextFieldContainer(
                     builder: (controller) => TextField(
+                      autofocus: true,
+                      decoration: const InputDecoration(label: Text('Notes')),
                       controller: controller,
                       maxLines: 4,
                       onChanged: (value) =>

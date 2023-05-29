@@ -12,7 +12,7 @@ class CreateGoalView extends ConsumerStatefulWidget {
 }
 
 class _CreateGoalViewState extends ConsumerState<CreateGoalView> {
-  Goal goal = Goal.empty().copyWith(period: 1, minutes: 1);
+  Goal goal = Goal.empty().copyWith(period: 7, minutes: 90);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,19 +31,26 @@ class _CreateGoalViewState extends ConsumerState<CreateGoalView> {
             builder: (_) {
               return Column(
                 children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Select the number of days to reach your goal.',
+                      textScaleFactor: 2,
+                    ),
+                  ),
                   Expanded(
                     child: LayoutBuilder(
                       builder: (context, constraints) => NumberPicker(
                         value: goal.period,
                         minValue: 1,
-                        maxValue: 100,
+                        maxValue: 365,
                         itemHeight: constraints.maxHeight / 2,
+                        textStyle: const TextStyle(fontSize: 40),
                         onChanged: (value) =>
                             setState(() => goal = goal.copyWith(period: value)),
                       ),
                     ),
                   ),
-                  const Text('Select the number of days to reach your goal.'),
                 ],
               );
             },
@@ -54,7 +61,10 @@ class _CreateGoalViewState extends ConsumerState<CreateGoalView> {
                 children: [
                   const Padding(
                     padding: EdgeInsets.all(28.0),
-                    child: Text('Start Today or an alternate time?'),
+                    child: Text(
+                      'Start Today or an alternate time?',
+                      textScaleFactor: 2.2,
+                    ),
                   ),
                   DateButton(
                     onSave: (value) =>
@@ -68,14 +78,26 @@ class _CreateGoalViewState extends ConsumerState<CreateGoalView> {
             builder: (_) {
               return Column(
                 children: [
-                  NumberPicker(
-                    value: goal.minutes,
-                    minValue: 1,
-                    maxValue: 100,
-                    onChanged: (value) =>
-                        setState(() => goal = goal.copyWith(minutes: value)),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Time in minutes to reach goal.',
+                      textScaleFactor: 2.3,
+                    ),
                   ),
-                  const Text('Time in minutes to reach goal.'),
+                  Expanded(
+                    child: LayoutBuilder(
+                      builder: (context, constraints) => NumberPicker(
+                        value: goal.minutes,
+                        minValue: 1,
+                        maxValue: 300,
+                        itemHeight: constraints.maxHeight / 2,
+                        textStyle: const TextStyle(fontSize: 40),
+                        onChanged: (value) => setState(
+                            () => goal = goal.copyWith(minutes: value)),
+                      ),
+                    ),
+                  ),
                 ],
               );
             },

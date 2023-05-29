@@ -30,8 +30,8 @@ class Goal with _$Goal {
   factory Goal.fromJson(Map<String, Object?> json) => _$GoalFromJson(json);
   factory Goal.empty() => Goal(
         id: '',
-        minutes: 0,
-        period: 0,
+        minutes: 90,
+        period: 7,
         recurring: false,
         start: DateTime.now(),
         userId: '',

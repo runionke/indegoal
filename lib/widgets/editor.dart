@@ -46,17 +46,26 @@ class Editor extends StatelessWidget {
             ),
           ),
           const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                  onPressed: onCancel,
-                  child: cancelDisplay ?? const Text('Cancel')),
-              if (onSave != null)
-                TextButton(
-                    onPressed: onSave,
-                    child: saveDisplay ?? const Text('Save')),
-            ],
+          Theme(
+            data: Theme.of(context).copyWith(
+                textTheme: Theme.of(context)
+                    .textTheme
+                    .copyWith(labelLarge: const TextStyle(fontSize: 40))),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                      onPressed: onCancel,
+                      child: cancelDisplay ?? const Text('Cancel')),
+                  if (onSave != null)
+                    TextButton(
+                        onPressed: onSave,
+                        child: saveDisplay ?? const Text('Save')),
+                ],
+              ),
+            ),
           ),
         ],
       ),

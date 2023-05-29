@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DateButton extends StatefulWidget {
   const DateButton({super.key, required this.onSave});
@@ -29,7 +30,10 @@ class _DateButtonState extends State<DateButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => _selectDate(context),
-      child: Text('${selectedDate.toLocal()}'.split(' ')[0]),
+      child: Text(
+        DateFormat.yMd().add_jm().format(selectedDate),
+        textScaleFactor: 2.5,
+      ),
     );
   }
 }
