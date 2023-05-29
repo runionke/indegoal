@@ -45,9 +45,8 @@ GoRouter router(RouterRef ref) {
                           ),
                       routes: [
                         GoRoute(
-                            path: 'images/:eventId',
-                            builder: (context, state) => EventImageListView(
-                                  goalId: state.pathParameters['goalId'] ?? '',
+                            path: 'event/:eventId',
+                            builder: (context, state) => EventEditView(
                                   eventId:
                                       state.pathParameters['eventId'] ?? '',
                                 )),

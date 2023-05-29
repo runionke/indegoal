@@ -53,6 +53,16 @@ class Appwrite extends _$Appwrite {
     return response.documents.map((e) => e.data);
   }
 
+  Future<Map<String, dynamic>> read(
+      {required DbCollection collectionId, required String id}) async {
+    final response = await state.database.getDocument(
+      databaseId: AppwriteSettings.databaseId,
+      collectionId: collectionId.name,
+      documentId: id,
+    );
+    return response.data;
+  }
+
   Future<void> create({
     required Map<String, dynamic> data,
     required DbCollection collection,

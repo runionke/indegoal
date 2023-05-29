@@ -49,7 +49,7 @@ class EventHistoryItem extends ConsumerWidget {
               .add_jm()
               .format(event.time)), //Text(event.notes),
           InkWell(
-            onTap: () => context.push('/hist/$goalId/images/${event.id}'),
+            onTap: () => context.push('/hist/$goalId/event/${event.id}'),
             child: Row(
               children: [
                 Padding(

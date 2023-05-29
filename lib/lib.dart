@@ -10,6 +10,7 @@ export 'providers/event_provider.dart';
 export 'providers/goal_provider.dart';
 export 'providers/route_provider.dart';
 export 'ui/event/create_event_view.dart';
+export 'ui/event/event_edit_view.dart';
 export 'ui/event/event_history_view.dart';
 export 'ui/event/event_image_list_view.dart';
 export 'ui/event/event_image_picker.dart';

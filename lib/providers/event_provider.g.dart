@@ -6,7 +6,7 @@ part of 'event_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventImagesHash() => r'0efa8c9825093c347e9e573b110b3ac1e4f7a48e';
+String _$eventImagesHash() => r'16ec395f7b0ee7f13896d415b7e9b9acbcf7d422';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -31,33 +31,35 @@ class _SystemHash {
 
 typedef EventImagesRef = AutoDisposeFutureProviderRef<List<Uint8List>>;
 
-///accepts [event], or [eventId] and [goalId]
+///accepts [event], or [eventId]
 ///
 /// Copied from [eventImages].
 @ProviderFor(eventImages)
 const eventImagesProvider = EventImagesFamily();
 
-///accepts [event], or [eventId] and [goalId]
+///accepts [event], or [eventId]
 ///
 /// Copied from [eventImages].
 class EventImagesFamily extends Family<AsyncValue<List<Uint8List>>> {
-  ///accepts [event], or [eventId] and [goalId]
+  ///accepts [event], or [eventId]
   ///
   /// Copied from [eventImages].
   const EventImagesFamily();
 
-  ///accepts [event], or [eventId] and [goalId]
+  ///accepts [event], or [eventId]
   ///
   /// Copied from [eventImages].
   EventImagesProvider call({
     Event? event,
     String? eventId,
-    String? goalId,
+    double height = 50,
+    double width = 50,
   }) {
     return EventImagesProvider(
       event: event,
       eventId: eventId,
-      goalId: goalId,
+      height: height,
+      width: width,
     );
   }
 
@@ -68,7 +70,8 @@ class EventImagesFamily extends Family<AsyncValue<List<Uint8List>>> {
     return call(
       event: provider.event,
       eventId: provider.eventId,
-      goalId: provider.goalId,
+      height: provider.height,
+      width: provider.width,
     );
   }
 
@@ -87,23 +90,25 @@ class EventImagesFamily extends Family<AsyncValue<List<Uint8List>>> {
   String? get name => r'eventImagesProvider';
 }
 
-///accepts [event], or [eventId] and [goalId]
+///accepts [event], or [eventId]
 ///
 /// Copied from [eventImages].
 class EventImagesProvider extends AutoDisposeFutureProvider<List<Uint8List>> {
-  ///accepts [event], or [eventId] and [goalId]
+  ///accepts [event], or [eventId]
   ///
   /// Copied from [eventImages].
   EventImagesProvider({
     this.event,
     this.eventId,
-    this.goalId,
+    this.height = 50,
+    this.width = 50,
   }) : super.internal(
           (ref) => eventImages(
             ref,
             event: event,
             eventId: eventId,
-            goalId: goalId,
+            height: height,
+            width: width,
           ),
           from: eventImagesProvider,
           name: r'eventImagesProvider',
@@ -118,14 +123,16 @@ class EventImagesProvider extends AutoDisposeFutureProvider<List<Uint8List>> {
 
   final Event? event;
   final String? eventId;
-  final String? goalId;
+  final double height;
+  final double width;
 
   @override
   bool operator ==(Object other) {
     return other is EventImagesProvider &&
         other.event == event &&
         other.eventId == eventId &&
-        other.goalId == goalId;
+        other.height == height &&
+        other.width == width;
   }
 
   @override
@@ -133,39 +140,38 @@ class EventImagesProvider extends AutoDisposeFutureProvider<List<Uint8List>> {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, event.hashCode);
     hash = _SystemHash.combine(hash, eventId.hashCode);
-    hash = _SystemHash.combine(hash, goalId.hashCode);
+    hash = _SystemHash.combine(hash, height.hashCode);
+    hash = _SystemHash.combine(hash, width.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-String _$eventHash() => r'bd4ff11935b01bbbf559496aa65b8297c7888f29';
+String _$eventHash() => r'ee79b8ea8677e387d447b1d739fdd5a9cc1c09d5';
 typedef EventRef = AutoDisposeFutureProviderRef<Event>;
 
-///event from [goalId] and [eventId] - throws exception if not found
+///event from [goalId]
 ///
 /// Copied from [event].
 @ProviderFor(event)
 const eventProvider = EventFamily();
 
-///event from [goalId] and [eventId] - throws exception if not found
+///event from [goalId]
 ///
 /// Copied from [event].
 class EventFamily extends Family<AsyncValue<Event>> {
-  ///event from [goalId] and [eventId] - throws exception if not found
+  ///event from [goalId]
   ///
   /// Copied from [event].
   const EventFamily();
 
-  ///event from [goalId] and [eventId] - throws exception if not found
+  ///event from [goalId]
   ///
   /// Copied from [event].
   EventProvider call({
-    required String goalId,
     required String eventId,
   }) {
     return EventProvider(
-      goalId: goalId,
       eventId: eventId,
     );
   }
@@ -175,7 +181,6 @@ class EventFamily extends Family<AsyncValue<Event>> {
     covariant EventProvider provider,
   ) {
     return call(
-      goalId: provider.goalId,
       eventId: provider.eventId,
     );
   }
@@ -195,20 +200,18 @@ class EventFamily extends Family<AsyncValue<Event>> {
   String? get name => r'eventProvider';
 }
 
-///event from [goalId] and [eventId] - throws exception if not found
+///event from [goalId]
 ///
 /// Copied from [event].
 class EventProvider extends AutoDisposeFutureProvider<Event> {
-  ///event from [goalId] and [eventId] - throws exception if not found
+  ///event from [goalId]
   ///
   /// Copied from [event].
   EventProvider({
-    required this.goalId,
     required this.eventId,
   }) : super.internal(
           (ref) => event(
             ref,
-            goalId: goalId,
             eventId: eventId,
           ),
           from: eventProvider,
@@ -221,20 +224,16 @@ class EventProvider extends AutoDisposeFutureProvider<Event> {
           allTransitiveDependencies: EventFamily._allTransitiveDependencies,
         );
 
-  final String goalId;
   final String eventId;
 
   @override
   bool operator ==(Object other) {
-    return other is EventProvider &&
-        other.goalId == goalId &&
-        other.eventId == eventId;
+    return other is EventProvider && other.eventId == eventId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, goalId.hashCode);
     hash = _SystemHash.combine(hash, eventId.hashCode);
 
     return _SystemHash.finish(hash);

@@ -84,36 +84,32 @@ extension IterableEventExtension on Iterable<Event> {
   }
 }
 
-///accepts [event], or [eventId] and [goalId]
+///accepts [event], or [eventId]
 @riverpod
 Future<List<Uint8List>> eventImages(
   EventImagesRef ref, {
   Event? event,
   String? eventId,
-  String? goalId,
+  double height = 50,
+  double width = 50,
 }) async {
-  event ??=
-      await ref.watch(eventProvider(eventId: eventId!, goalId: goalId!).future);
+  event ??= await ref.watch(eventProvider(eventId: eventId!).future);
   return (await ref.watch(appwriteProvider.notifier).previewFromStorage(
           bucketId: AppwriteSettings.eventImageBucket,
           items: event!.photos,
-          height: 50,
-          width: 50))
+          height: height,
+          width: width))
       .toList();
 }
 
-///event from [goalId] and [eventId] - throws exception if not found
+///event from [goalId]
 @riverpod
 Future<Event> event(
   EventRef ref, {
-  required String goalId,
   required String eventId,
 }) async {
-  final goal = (await ref.watch(goalNotifierProvider.future)).withId(goalId);
-  final events = await ref.watch(eventNotifierProvider(goal: goal).future);
-  final event = events.firstWhereOrNull((element) => element.id == eventId);
-  if (event == null) {
-    throw Exception('event not found for goal $goalId event $eventId');
-  }
-  return event;
+  final event = await ref
+      .watch(appwriteProvider.notifier)
+      .read(collectionId: DbCollection.events, id: eventId);
+  return Event.fromJson(event);
 }
