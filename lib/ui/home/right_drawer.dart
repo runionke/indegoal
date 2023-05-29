@@ -62,8 +62,10 @@ class _DeactivateButtonState extends State<DeactivateButton> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                        'This will end and remove current goal. You will not be able to reactivate it once it has been deactivated'),
+                    const Flexible(
+                      child: Text(
+                          'This will end and remove current goal. You will not be able to reactivate it once it has been deactivated.'),
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -82,9 +84,9 @@ class _DeactivateButtonState extends State<DeactivateButton> {
                                     showModal = false;
                                   }),
                               child: const Text('Deactivate')),
-                        ),
+                        )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
