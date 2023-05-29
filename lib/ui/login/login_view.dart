@@ -12,15 +12,17 @@ class LoginView extends ConsumerWidget {
       body: Container(
         color: Theme.of(context).colorScheme.primaryContainer,
         child: const Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(28.0),
-                child: AppLogo(),
-              ),
-              GoogleSigninButton()
-            ],
+          child: Card(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(28.0),
+                  child: AppLogo(),
+                ),
+                GoogleSigninButton()
+              ],
+            ),
           ),
         ),
       ),

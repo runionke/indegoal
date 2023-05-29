@@ -13,6 +13,7 @@ export 'ui/event/create_event_view.dart';
 export 'ui/event/event_history_view.dart';
 export 'ui/event/event_image_list_view.dart';
 export 'ui/event/event_image_picker.dart';
+export 'ui/general/app_icon.dart';
 export 'ui/general/sleeve_of_wizard.dart';
 export 'ui/general/view_shell.dart';
 export 'ui/goal/create_goal_view.dart';

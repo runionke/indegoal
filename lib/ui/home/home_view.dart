@@ -17,7 +17,21 @@ class HomeView extends ConsumerWidget {
         data: (goals) {
           final activeGoals = goals.active;
           return Scaffold(
-            appBar: AppBar(title: const Text('IndeGoal')),
+            appBar: AppBar(
+              title: const Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 5.0),
+                    child: AppIcon(
+                      width: 35,
+                      height: 35,
+                    ),
+                  ),
+                  Text('IndeGoal'),
+                ],
+              ),
+            ),
             endDrawer: Drawer(
               width: 120,
               child: RightDrawer(goal: goals.active.firstOrNull),

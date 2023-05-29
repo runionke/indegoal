@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indegoal/lib.dart';
 
 class AppLogo extends StatelessWidget {
   const AppLogo({super.key});
@@ -17,8 +18,19 @@ class AppLogo extends StatelessWidget {
               vertical: 18.0,
               horizontal: 30,
             ),
-            child:
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(right: 8.0),
+                  child: AppIcon(
+                    height: 50,
+                    width: 50,
+                  ),
+                ),
                 Text('IndeGoal', style: Theme.of(context).textTheme.titleLarge),
+              ],
+            ),
           ),
         ),
       ],
