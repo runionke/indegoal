@@ -10,7 +10,7 @@ class AppIcon extends StatelessWidget {
   final double? height;
   @override
   Widget build(BuildContext context) {
-    return Image.network(
+    return Image.asset(
       'assets/general/Icon.png',
       width: width,
       height: height,
