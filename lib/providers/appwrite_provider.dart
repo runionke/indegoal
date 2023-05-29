@@ -33,8 +33,8 @@ class Appwrite extends _$Appwrite {
   Future<void> oauthSession(String provider) async {
     await state.account.createOAuth2Session(
         provider: provider,
-        success: 'https://indegoal.com/',
-        failure: 'https://indegoal.com/');
+        success: 'https://indegoal.com/auth/complete',
+        failure: 'https://indegoal.com/auth/complete');
   }
 
   Future<Iterable<Map<String, dynamic>>> list(

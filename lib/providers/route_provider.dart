@@ -54,7 +54,14 @@ GoRouter router(RouterRef ref) {
                       ]),
                 ]),
             GoRoute(
-                path: '/auth', builder: (context, state) => const LoginView()),
+                path: '/auth',
+                builder: (context, state) => const LoginView(),
+                routes: [
+                  GoRoute(
+                    path: 'complete',
+                    builder: (context, state) => const AuthComplete(),
+                  )
+                ]),
             GoRoute(
                 path: '/cgoal',
                 builder: (context, state) => const CreateGoalView()),

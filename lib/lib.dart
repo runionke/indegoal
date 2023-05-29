@@ -24,6 +24,7 @@ export 'ui/home/home_view.dart';
 export 'ui/home/no_goal.dart';
 export 'ui/home/right_drawer.dart';
 export 'ui/login/app_logo.dart';
+export 'ui/login/auth_complete.dart';
 export 'ui/login/google_signin_button.dart';
 export 'ui/login/login_view.dart';
 export 'ui/register/register_view.dart';
