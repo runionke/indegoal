@@ -44,6 +44,7 @@ dependencies:
   intl: ^0.18.1
   image_picker: ^0.8.7+5
   d_chart: ^2.2.11
+  shimmer: ^3.0.0
   
   flutter_web_plugins:
     sdk: flutter

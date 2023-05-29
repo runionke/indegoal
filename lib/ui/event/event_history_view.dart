@@ -45,7 +45,7 @@ class EventHistoryItem extends ConsumerWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(DateFormat.yMd()
+          SelectableText(DateFormat.yMd()
               .add_jm()
               .format(event.time)), //Text(event.notes),
           InkWell(
@@ -88,7 +88,7 @@ class EventHistoryItem extends ConsumerWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: Text(event.notes),
+                  child: SelectableText(event.notes),
                 ),
               ],
             ),

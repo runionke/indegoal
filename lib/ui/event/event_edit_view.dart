@@ -119,7 +119,7 @@ class _NoteEditState extends State<NoteEdit> {
               child: switch (editting) {
                 false => Row(
                     children: [
-                      Text(widget.note),
+                      SelectableText(widget.note),
                     ],
                   ),
                 true => TextField(
