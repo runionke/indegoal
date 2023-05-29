@@ -12,13 +12,19 @@ class EventImageListView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    return ref.watch(eventImagesProvider(eventId: eventId)).when(
+    return ref
+        .watch(eventImagesProvider(eventId: eventId, width: 200, height: 200))
+        .when(
           loading: () => const Loading(),
           error: (error, stackTrace) => ErrWidget(error),
           data: (images) => Card(
             child: GridView.count(
               crossAxisCount: 2,
-              children: images.map((e) => Image.memory(e)).toList(),
+              children: images
+                  .map((e) => ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.memory(e)))
+                  .toList(),
             ),
           ),
         );

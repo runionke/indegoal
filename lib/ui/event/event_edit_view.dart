@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:indegoal/lib.dart';
+import 'package:intl/intl.dart';
 
-class EventEditView extends StatefulWidget {
+class EventEditView extends ConsumerStatefulWidget {
   const EventEditView({
     super.key,
     required this.eventId,
@@ -10,16 +12,41 @@ class EventEditView extends StatefulWidget {
   final String eventId;
 
   @override
-  State<EventEditView> createState() => _EventEditViewState();
+  ConsumerState<EventEditView> createState() => _EventEditViewState();
 }
 
-class _EventEditViewState extends State<EventEditView> {
+class _EventEditViewState extends ConsumerState<EventEditView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: const Text('Event ')),
-        body: EventImageListView(
-          eventId: widget.eventId,
-        ));
+    return ref.watch(eventProvider(eventId: widget.eventId)).when(
+        loading: () => const Loading(),
+        error: (error, stackTrace) => ErrWidget(error),
+        data: (event) => Scaffold(
+            appBar: AppBar(
+              title: Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(DateFormat.yMd().add_jm().format(event.time),
+                          style: Theme.of(context).textTheme.headlineSmall),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: EventImageListView(
+                      eventId: widget.eventId,
+                    ),
+                  ),
+                ],
+              ),
+            )));
   }
 }
