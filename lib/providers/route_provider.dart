@@ -49,6 +49,7 @@ GoRouter router(RouterRef ref) {
                             builder: (context, state) => EventEditView(
                                   eventId:
                                       state.pathParameters['eventId'] ?? '',
+                                  goalId: state.pathParameters['goalId'] ?? '',
                                 )),
                       ]),
                 ]),

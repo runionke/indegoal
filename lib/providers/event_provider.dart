@@ -53,6 +53,20 @@ class EventNotifier extends _$EventNotifier {
     ref.invalidateSelf();
   }
 
+  Future<void> save(Event event) async {
+    await ref.watch(appwriteProvider.notifier).write(
+        collectionId: DbCollection.events, id: event.id, data: event.toJson());
+
+    //update notifier state with this changed event
+    final events = await future;
+    state = AsyncValue.data(
+        events.toList().where((element) => element.id != event.id).toList()
+          ..add(event));
+
+    //refresh any event listeners
+    ref.invalidate(eventProvider(eventId: event.id));
+  }
+
   Future<void> delete(String id) async {
     await ref
         .watch(appwriteProvider.notifier)

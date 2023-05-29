@@ -86,7 +86,10 @@ class EventHistoryItem extends ConsumerWidget {
                         ),
                   ),
                 ),
-                Text(event.notes),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(event.notes),
+                ),
               ],
             ),
           )
