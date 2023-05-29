@@ -55,7 +55,7 @@ class EventNotifier extends _$EventNotifier {
 
   Future<void> save(Event event) async {
     await ref.watch(appwriteProvider.notifier).write(
-        collectionId: DbCollection.events, id: event.id, data: event.toJson());
+        collection: DbCollection.events, id: event.id, data: event.toJson());
 
     //update notifier state with this changed event
     final events = await future;

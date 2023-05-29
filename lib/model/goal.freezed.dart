@@ -35,6 +35,8 @@ mixin _$Goal {
 
   ///or one time
   bool get recurring => throw _privateConstructorUsedError;
+  @JsonKey(defaultValue: true)
+  bool get active => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +55,9 @@ abstract class $GoalCopyWith<$Res> {
       int minutes,
       int period,
       DateTime start,
-      bool recurring});
+      bool recurring,
+      @JsonKey(defaultValue: true)
+          bool active});
 }
 
 /// @nodoc
@@ -75,6 +79,7 @@ class _$GoalCopyWithImpl<$Res, $Val extends Goal>
     Object? period = null,
     Object? start = null,
     Object? recurring = null,
+    Object? active = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -101,6 +106,10 @@ class _$GoalCopyWithImpl<$Res, $Val extends Goal>
           ? _value.recurring
           : recurring // ignore: cast_nullable_to_non_nullable
               as bool,
+      active: null == active
+          ? _value.active
+          : active // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -118,7 +127,9 @@ abstract class _$$_goalCopyWith<$Res> implements $GoalCopyWith<$Res> {
       int minutes,
       int period,
       DateTime start,
-      bool recurring});
+      bool recurring,
+      @JsonKey(defaultValue: true)
+          bool active});
 }
 
 /// @nodoc
@@ -136,6 +147,7 @@ class __$$_goalCopyWithImpl<$Res> extends _$GoalCopyWithImpl<$Res, _$_goal>
     Object? period = null,
     Object? start = null,
     Object? recurring = null,
+    Object? active = null,
   }) {
     return _then(_$_goal(
       id: null == id
@@ -162,6 +174,10 @@ class __$$_goalCopyWithImpl<$Res> extends _$GoalCopyWithImpl<$Res, _$_goal>
           ? _value.recurring
           : recurring // ignore: cast_nullable_to_non_nullable
               as bool,
+      active: null == active
+          ? _value.active
+          : active // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -176,7 +192,9 @@ class _$_goal extends _goal {
       required this.minutes,
       required this.period,
       required this.start,
-      required this.recurring})
+      required this.recurring,
+      @JsonKey(defaultValue: true)
+          required this.active})
       : super._();
 
   factory _$_goal.fromJson(Map<String, dynamic> json) => _$$_goalFromJson(json);
@@ -202,10 +220,13 @@ class _$_goal extends _goal {
   ///or one time
   @override
   final bool recurring;
+  @override
+  @JsonKey(defaultValue: true)
+  final bool active;
 
   @override
   String toString() {
-    return 'Goal(id: $id, userId: $userId, minutes: $minutes, period: $period, start: $start, recurring: $recurring)';
+    return 'Goal(id: $id, userId: $userId, minutes: $minutes, period: $period, start: $start, recurring: $recurring, active: $active)';
   }
 
   @override
@@ -219,13 +240,14 @@ class _$_goal extends _goal {
             (identical(other.period, period) || other.period == period) &&
             (identical(other.start, start) || other.start == start) &&
             (identical(other.recurring, recurring) ||
-                other.recurring == recurring));
+                other.recurring == recurring) &&
+            (identical(other.active, active) || other.active == active));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, userId, minutes, period, start, recurring);
+  int get hashCode => Object.hash(
+      runtimeType, id, userId, minutes, period, start, recurring, active);
 
   @JsonKey(ignore: true)
   @override
@@ -249,7 +271,9 @@ abstract class _goal extends Goal {
       required final int minutes,
       required final int period,
       required final DateTime start,
-      required final bool recurring}) = _$_goal;
+      required final bool recurring,
+      @JsonKey(defaultValue: true)
+          required final bool active}) = _$_goal;
   const _goal._() : super._();
 
   factory _goal.fromJson(Map<String, dynamic> json) = _$_goal.fromJson;
@@ -275,6 +299,9 @@ abstract class _goal extends Goal {
 
   ///or one time
   bool get recurring;
+  @override
+  @JsonKey(defaultValue: true)
+  bool get active;
   @override
   @JsonKey(ignore: true)
   _$$_goalCopyWith<_$_goal> get copyWith => throw _privateConstructorUsedError;

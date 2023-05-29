@@ -13,6 +13,7 @@ _$_goal _$$_goalFromJson(Map<String, dynamic> json) => _$_goal(
       period: json['period'] as int,
       start: DateTime.parse(json['start'] as String),
       recurring: json['recurring'] as bool,
+      active: json['active'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$$_goalToJson(_$_goal instance) => <String, dynamic>{
@@ -21,4 +22,5 @@ Map<String, dynamic> _$$_goalToJson(_$_goal instance) => <String, dynamic>{
       'period': instance.period,
       'start': instance.start.toIso8601String(),
       'recurring': instance.recurring,
+      'active': instance.active,
     };

@@ -22,6 +22,7 @@ class Goal with _$Goal {
 
     ///or one time
     required bool recurring,
+    @JsonKey(defaultValue: true) required bool active,
   }) = _goal;
 
   DateTime get end => start.add(Duration(days: period));
@@ -34,6 +35,7 @@ class Goal with _$Goal {
         recurring: false,
         start: DateTime.now(),
         userId: '',
+        active: true,
       );
 }
 

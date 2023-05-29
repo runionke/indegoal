@@ -240,7 +240,7 @@ class EventProvider extends AutoDisposeFutureProvider<Event> {
   }
 }
 
-String _$eventNotifierHash() => r'745dc6b755dc0ff4955953d8a42390d4a9886efb';
+String _$eventNotifierHash() => r'2274397eac84f0f78415256e4906adf847a10206';
 
 abstract class _$EventNotifier extends BuildlessAsyncNotifier<Iterable<Event>> {
   late final Goal? goal;

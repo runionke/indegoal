@@ -6,7 +6,7 @@ part of 'goal_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$goalNotifierHash() => r'fcca88949487ed3dfaaf32de152e61ba7db984ce';
+String _$goalNotifierHash() => r'1662c6e2a49159c5d0fd4c0df446dc971b66a6ea';
 
 ///goals sorted by end date
 ///

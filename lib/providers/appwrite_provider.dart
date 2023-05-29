@@ -64,14 +64,14 @@ class Appwrite extends _$Appwrite {
   }
 
   Future<Map<String, dynamic>> write({
-    required DbCollection collectionId,
+    required DbCollection collection,
     required String id,
     required,
     required Map<String, dynamic> data,
   }) async {
     final response = await state.database.updateDocument(
       databaseId: AppwriteSettings.databaseId,
-      collectionId: collectionId.name,
+      collectionId: collection.name,
       documentId: id,
       data: data,
     );

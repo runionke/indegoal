@@ -9,7 +9,7 @@ class HomeView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return ref.watch(goalNotifierProvider).when(
-        loading: () => const Loading(),
+        loading: () => const Loading.shimmer(),
         error: (error, stackTrace) => ErrWidget(
               error,
               stackTrace: stackTrace,

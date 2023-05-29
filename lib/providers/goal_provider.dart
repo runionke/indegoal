@@ -1,3 +1,4 @@
+import 'package:appwrite/appwrite.dart';
 import 'package:collection/collection.dart';
 import 'package:indegoal/lib.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,9 +12,9 @@ class GoalNotifier extends _$GoalNotifier {
   Future<Iterable<Goal>> build() async {
     Log.d('GoalNotifier-> build');
 
-    final data = (await ref
-        .watch(appwriteProvider.notifier)
-        .list(collection: DbCollection.goals));
+    final data = (await ref.watch(appwriteProvider.notifier).list(
+        collection: DbCollection.goals,
+        queries: [Query.equal('active', true)]));
 
     return data.map((e) => Goal.fromJson(e));
   }
@@ -32,6 +33,15 @@ class GoalNotifier extends _$GoalNotifier {
     await ref
         .watch(appwriteProvider.notifier)
         .delete(id: id, collection: DbCollection.goals);
+    ref.invalidateSelf();
+  }
+
+  Future<void> deactivate(Goal goal) async {
+    state = const AsyncValue.loading();
+    await ref.watch(appwriteProvider.notifier).write(
+        id: goal.id,
+        collection: DbCollection.goals,
+        data: goal.copyWith(active: false).toJson());
     ref.invalidateSelf();
   }
 }
