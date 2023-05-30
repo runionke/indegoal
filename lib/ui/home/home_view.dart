@@ -34,7 +34,7 @@ class HomeView extends ConsumerWidget {
             ),
             endDrawer: Drawer(
               width: 120,
-              child: RightDrawer(goal: goals.active.firstOrNull),
+              child: RightDrawer(goal: activeGoals.firstOrNull),
             ),
             body: switch (activeGoals.isEmpty) {
               true => const NoGoal(),
