@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:indegoal/lib.dart';
 import 'package:intl/intl.dart';
 
@@ -23,12 +24,28 @@ class EventEditView extends ConsumerWidget {
               title: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(DateFormat.yMd().add_jm().format(event.time),
-                          style: Theme.of(context).textTheme.headlineSmall),
-                    ],
+                  child: Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(DateFormat.yMd().add_jm().format(event.time),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
+                            ],
+                          ),
+                        ),
+                        DeleteButton(
+                            ref
+                                .watch(goalNotifierProvider)
+                                .value
+                                ?.withId(goalId),
+                            event),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -131,6 +148,76 @@ class _NoteEditState extends State<NoteEdit> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class DeleteButton extends StatefulWidget {
+  const DeleteButton(this.goal, this.event, {super.key});
+  final Event event;
+  final Goal? goal;
+  @override
+  State<DeleteButton> createState() => _DeleteButtonState();
+}
+
+class _DeleteButtonState extends State<DeleteButton> {
+  bool showModal = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (showModal)
+          PortalModal(
+            child: Card(
+                child: ConstrainedBox(
+              constraints: const BoxConstraints(maxHeight: 200, maxWidth: 250),
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Flexible(
+                      child: Text(
+                          'This will event and images will be removed completely. Are you sure you wish to delete?'),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                            onPressed: () => setState(() {
+                                  showModal = false;
+                                }),
+                            child: const Text('Cancel')),
+                        Consumer(
+                          builder: (context, ref, child) => ElevatedButton(
+                              onPressed: () => setState(() {
+                                    ref
+                                        .watch(eventNotifierProvider(
+                                                goal: widget.goal)
+                                            .notifier)
+                                        .delete(widget.event.id);
+                                    context.pop();
+                                  }),
+                              child: const Text('Delete')),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            )),
+            onCancel: () => context.pop(),
+          ),
+        IconButton(
+            onPressed: () {
+              setState(() {
+                showModal = true;
+              });
+            },
+            icon: const Icon(Icons.delete))
+      ],
     );
   }
 }

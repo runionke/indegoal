@@ -68,10 +68,13 @@ class EventNotifier extends _$EventNotifier {
   }
 
   Future<void> delete(String id) async {
+    //update the state remove the deleted element
+    state = AsyncValue.data(
+        (await future).toList().where((element) => element.id != id));
+    //state updated first so the ui is updated when the modal pops
     await ref
         .watch(appwriteProvider.notifier)
         .delete(id: id, collection: DbCollection.events);
-    ref.invalidateSelf();
   }
 }
 

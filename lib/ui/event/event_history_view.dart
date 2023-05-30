@@ -28,7 +28,7 @@ class EventHistoryView extends ConsumerWidget {
               );
             },
             error: (error, stackTrace) => ErrWidget(error),
-            loading: () => const Loading(),
+            loading: () => const Loading.shimmer(),
           ),
     );
   }
@@ -41,16 +41,16 @@ class EventHistoryItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SelectableText(DateFormat.yMd()
-              .add_jm()
-              .format(event.time)), //Text(event.notes),
-          InkWell(
-            onTap: () => context.push('/hist/$goalId/event/${event.id}'),
-            child: Row(
+    return InkWell(
+      onTap: () => context.push('/hist/$goalId/event/${event.id}'),
+      child: Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SelectableText(DateFormat.yMd()
+                .add_jm()
+                .format(event.time)), //Text(event.notes),
+            Row(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(left: 8.0),
@@ -66,34 +66,34 @@ class EventHistoryItem extends ConsumerWidget {
                     ),
                   ),
                 ),
-                Expanded(
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxHeight: 50),
-                    child: ref.watch(eventImagesProvider(event: event)).when(
-                          data: (images) {
-                            return Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: images.length,
-                                itemBuilder: (context, index) =>
-                                    ImageThumbnail(bytes: images[index]),
-                              ),
-                            );
-                          },
-                          error: (error, stackTrace) => ErrWidget(error),
-                          loading: () => const Loading(),
-                        ),
-                  ),
+                ConstrainedBox(
+                  constraints:
+                      const BoxConstraints(maxHeight: 50, maxWidth: 200),
+                  child: ref.watch(eventImagesProvider(event: event)).when(
+                        data: (images) {
+                          return Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: images.length,
+                              itemBuilder: (context, index) =>
+                                  ImageThumbnail(bytes: images[index]),
+                            ),
+                          );
+                        },
+                        error: (error, stackTrace) => ErrWidget(error),
+                        loading: () => const Loading.shimmer(),
+                      ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: SelectableText(event.notes),
                 ),
               ],
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
