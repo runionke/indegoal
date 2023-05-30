@@ -77,8 +77,10 @@ class EventHistoryItem extends ConsumerWidget {
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               itemCount: images.length,
-                              itemBuilder: (context, index) =>
-                                  ImageThumbnail(bytes: images[index]),
+                              itemBuilder: (context, index) => Padding(
+                                padding: const EdgeInsets.only(right: 4.0),
+                                child: ImageThumbnail(bytes: images[index]),
+                              ),
                             ),
                           );
                         },
