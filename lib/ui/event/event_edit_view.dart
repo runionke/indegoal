@@ -17,35 +17,29 @@ class EventEditView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return ref.watch(eventProvider(eventId: eventId)).when(
-        loading: () => const Loading.shimmer(),
+        loading: () => const Loading(),
         error: (error, stackTrace) => ErrWidget(error),
         data: (event) => Scaffold(
             appBar: AppBar(
               title: Card(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Expanded(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(DateFormat.yMd().add_jm().format(event.time),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall),
-                            ],
-                          ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(DateFormat.yMd().add_jm().format(event.time),
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall),
+                          ],
                         ),
-                        DeleteButton(
-                            ref
-                                .watch(goalNotifierProvider)
-                                .value
-                                ?.withId(goalId),
-                            event),
-                      ],
-                    ),
+                      ),
+                      DeleteButton(
+                          ref.watch(goalNotifierProvider).value?.withId(goalId),
+                          event),
+                    ],
                   ),
                 ),
               ),

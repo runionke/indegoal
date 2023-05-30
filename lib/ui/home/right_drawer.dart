@@ -64,7 +64,7 @@ class _DeactivateButtonState extends State<DeactivateButton> {
                   children: [
                     const Flexible(
                       child: Text(
-                          'This will end and remove current goal. You will not be able to reactivate it once it has been deactivated.'),
+                          'This will end and remove current goal. You will not be able to reactivate it once it has been deactivated. However, events will not be deleted.'),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
