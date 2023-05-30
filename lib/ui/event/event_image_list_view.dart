@@ -18,13 +18,18 @@ class EventImageListView extends ConsumerWidget {
           loading: () => const Loading.shimmer(),
           error: (error, stackTrace) => ErrWidget(error),
           data: (images) => Card(
-            child: GridView.count(
-              crossAxisCount: 2,
-              children: images
-                  .map((e) => ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Image.memory(e)))
-                  .toList(),
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  mainAxisSpacing: 10, crossAxisSpacing: 10, crossAxisCount: 2),
+              itemCount: images.length,
+              itemBuilder: (context, index) {
+                return ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    child: Image.memory(
+                      images[index],
+                      fit: BoxFit.cover,
+                    ));
+              },
             ),
           ),
         );

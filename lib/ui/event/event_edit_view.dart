@@ -30,9 +30,13 @@ class EventEditView extends ConsumerWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(DateFormat.yMd().add_jm().format(event.time),
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall),
+                            Expanded(
+                              child: Text(
+                                  DateFormat.yMd().add_jm().format(event.time),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
+                            ),
                           ],
                         ),
                       ),
@@ -174,7 +178,7 @@ class _DeleteButtonState extends State<DeleteButton> {
                   children: [
                     const Flexible(
                       child: Text(
-                          'This will event and images will be removed completely. Are you sure you wish to delete?'),
+                          'This event and images will be removed completely. Are you sure you wish to delete?'),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

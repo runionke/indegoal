@@ -109,6 +109,10 @@ class ImageThumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-        borderRadius: BorderRadius.circular(10), child: Image.memory(bytes));
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        child: Image.memory(
+          bytes,
+          fit: BoxFit.cover,
+        ));
   }
 }
