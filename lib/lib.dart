@@ -28,7 +28,6 @@ export 'ui/login/app_logo.dart';
 export 'ui/login/auth_complete.dart';
 export 'ui/login/google_signin_button.dart';
 export 'ui/login/login_view.dart';
-export 'ui/register/register_view.dart';
 export 'util/date_utils.dart';
 export 'util/log.dart';
 export 'widgets/basic_box.dart';
