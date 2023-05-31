@@ -28,9 +28,13 @@ class RightDrawer extends ConsumerWidget {
           if (goal != null) DeactivateButton(goal!),
           const Divider(),
           TextButton(
+              onPressed: () => context.push('/export'),
+              child: const Text('Export')),
+          const Divider(),
+          TextButton(
               onPressed: () =>
                   ref.watch(authNotifierProvider.notifier).logout(),
-              child: const Text('Logout'))
+              child: const Text('Logout')),
         ],
       ),
     );

@@ -240,31 +240,47 @@ class EventProvider extends AutoDisposeFutureProvider<Event> {
   }
 }
 
-String _$eventNotifierHash() => r'b0c6e63ba41775d847516d085a1fb3e72b35788c';
+String _$eventNotifierHash() => r'd6980efbc373d2e63636bba8f9f6881ce408e3c4';
 
 abstract class _$EventNotifier extends BuildlessAsyncNotifier<Iterable<Event>> {
   late final Goal? goal;
+  late final DateTime? fromDate;
+  late final DateTime? toDate;
 
   Future<Iterable<Event>> build({
     Goal? goal,
+    DateTime? fromDate,
+    DateTime? toDate,
   });
 }
 
-/// See also [EventNotifier].
+/// [from] and [to] range take precedent over [goal] range
+///
+/// Copied from [EventNotifier].
 @ProviderFor(EventNotifier)
 const eventNotifierProvider = EventNotifierFamily();
 
-/// See also [EventNotifier].
+/// [from] and [to] range take precedent over [goal] range
+///
+/// Copied from [EventNotifier].
 class EventNotifierFamily extends Family<AsyncValue<Iterable<Event>>> {
-  /// See also [EventNotifier].
+  /// [from] and [to] range take precedent over [goal] range
+  ///
+  /// Copied from [EventNotifier].
   const EventNotifierFamily();
 
-  /// See also [EventNotifier].
+  /// [from] and [to] range take precedent over [goal] range
+  ///
+  /// Copied from [EventNotifier].
   EventNotifierProvider call({
     Goal? goal,
+    DateTime? fromDate,
+    DateTime? toDate,
   }) {
     return EventNotifierProvider(
       goal: goal,
+      fromDate: fromDate,
+      toDate: toDate,
     );
   }
 
@@ -274,6 +290,8 @@ class EventNotifierFamily extends Family<AsyncValue<Iterable<Event>>> {
   ) {
     return call(
       goal: provider.goal,
+      fromDate: provider.fromDate,
+      toDate: provider.toDate,
     );
   }
 
@@ -292,14 +310,23 @@ class EventNotifierFamily extends Family<AsyncValue<Iterable<Event>>> {
   String? get name => r'eventNotifierProvider';
 }
 
-/// See also [EventNotifier].
+/// [from] and [to] range take precedent over [goal] range
+///
+/// Copied from [EventNotifier].
 class EventNotifierProvider
     extends AsyncNotifierProviderImpl<EventNotifier, Iterable<Event>> {
-  /// See also [EventNotifier].
+  /// [from] and [to] range take precedent over [goal] range
+  ///
+  /// Copied from [EventNotifier].
   EventNotifierProvider({
     this.goal,
+    this.fromDate,
+    this.toDate,
   }) : super.internal(
-          () => EventNotifier()..goal = goal,
+          () => EventNotifier()
+            ..goal = goal
+            ..fromDate = fromDate
+            ..toDate = toDate,
           from: eventNotifierProvider,
           name: r'eventNotifierProvider',
           debugGetCreateSourceHash:
@@ -312,16 +339,23 @@ class EventNotifierProvider
         );
 
   final Goal? goal;
+  final DateTime? fromDate;
+  final DateTime? toDate;
 
   @override
   bool operator ==(Object other) {
-    return other is EventNotifierProvider && other.goal == goal;
+    return other is EventNotifierProvider &&
+        other.goal == goal &&
+        other.fromDate == fromDate &&
+        other.toDate == toDate;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
     hash = _SystemHash.combine(hash, goal.hashCode);
+    hash = _SystemHash.combine(hash, fromDate.hashCode);
+    hash = _SystemHash.combine(hash, toDate.hashCode);
 
     return _SystemHash.finish(hash);
   }
@@ -332,6 +366,8 @@ class EventNotifierProvider
   ) {
     return notifier.build(
       goal: goal,
+      fromDate: fromDate,
+      toDate: toDate,
     );
   }
 }

@@ -45,6 +45,8 @@ dependencies:
   image_picker: ^0.8.7+5
   d_chart: ^2.2.11
   shimmer: ^3.0.0
+  printing: ^5.11.0
+  pdf: ^3.10.4
   
   flutter_web_plugins:
     sdk: flutter

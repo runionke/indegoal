@@ -1,23 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'route_provider.dart';
+part of 'print_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'f71e84b7bb3d8642f349824c0759ba0d0fd1446f';
+String _$printNotifierHash() => r'd4e28cd39c7c239a1e2d6347a63d9290a115c623';
 
-/// See also [router].
-@ProviderFor(router)
-final routerProvider = AutoDisposeProvider<GoRouter>.internal(
-  router,
-  name: r'routerProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$routerHash,
+/// See also [PrintNotifier].
+@ProviderFor(PrintNotifier)
+final printNotifierProvider =
+    AutoDisposeNotifierProvider<PrintNotifier, PrintJob>.internal(
+  PrintNotifier.new,
+  name: r'printNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$printNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef RouterRef = AutoDisposeProviderRef<GoRouter>;
+typedef _$PrintNotifier = AutoDisposeNotifier<PrintJob>;
 // ignore_for_file: unnecessary_raw_strings, subtype_of_sealed_class, invalid_use_of_internal_member, do_not_use_environment, prefer_const_constructors, public_member_api_docs, avoid_private_typedef_functions

@@ -52,6 +52,9 @@ GoRouter router(RouterRef ref) {
                                   goalId: state.pathParameters['goalId'] ?? '',
                                 )),
                       ]),
+                  GoRoute(
+                      path: 'export',
+                      builder: (context, state) => const ExportPdfView()),
                 ]),
             GoRoute(
                 path: '/auth',

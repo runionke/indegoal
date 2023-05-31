@@ -6,10 +6,12 @@ import 'package:indegoal/lib.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'event_provider.g.dart';
 
+/// [from] and [to] range take precedent over [goal] range
 @Riverpod(keepAlive: true)
 class EventNotifier extends _$EventNotifier {
   @override
-  Future<Iterable<Event>> build({Goal? goal}) async {
+  Future<Iterable<Event>> build(
+      {Goal? goal, DateTime? fromDate, DateTime? toDate}) async {
     Log.d('EventNotifier-> build');
 
     if (goal != null) {
@@ -22,10 +24,10 @@ class EventNotifier extends _$EventNotifier {
             ? [
                 Query.greaterThanEqual(
                   'time',
-                  goal.start.midnight.toIso8601String(),
+                  fromDate ?? goal.start.midnight.toIso8601String(),
                 ),
                 Query.lessThanEqual(
-                    'time', goal.end.midnight.toIso8601String()),
+                    'time', toDate ?? goal.end.midnight.toIso8601String()),
               ]
             : null);
 
