@@ -41,5 +41,16 @@ Future<Uint8List> printPdf(Iterable<Event> events) {
           ],
         );
       }));
+
+  pdf.addPage(pw.Page(
+      pageFormat: PdfPageFormat.a4,
+      build: (pw.Context context) {
+        return pw.Column(
+          children: [
+            ...events.map((e) => pw.Text('event: ${e.time}')),
+            pw.Text("Test Test 2"),
+          ],
+        );
+      }));
   return pdf.save();
 }

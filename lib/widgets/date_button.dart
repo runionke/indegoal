@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateButton extends StatefulWidget {
-  const DateButton({super.key, required this.onSave});
+  const DateButton({super.key, required this.onSave, this.initialDate});
   final Function(DateTime) onSave;
-
+  final DateTime? initialDate;
   @override
   State<DateButton> createState() => _DateButtonState();
 }
 
 class _DateButtonState extends State<DateButton> {
-  DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate = widget.initialDate ?? DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
