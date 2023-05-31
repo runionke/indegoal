@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -98,23 +96,5 @@ class EventHistoryItem extends ConsumerWidget {
         ),
       ),
     );
-  }
-}
-
-class ImageThumbnail extends StatelessWidget {
-  const ImageThumbnail({
-    super.key,
-    required this.bytes,
-  });
-  final Uint8List bytes;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-        child: Image.memory(
-          bytes,
-          fit: BoxFit.cover,
-        ));
   }
 }

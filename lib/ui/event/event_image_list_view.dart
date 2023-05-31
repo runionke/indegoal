@@ -25,9 +25,8 @@ class EventImageListView extends ConsumerWidget {
               itemBuilder: (context, index) {
                 return ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    child: Image.memory(
-                      images[index],
-                      fit: BoxFit.cover,
+                    child: ImageThumbnail(
+                      bytes: images[index],
                     ));
               },
             ),
