@@ -8,8 +8,6 @@ part 'appwrite_provider.g.dart';
 
 class AppwriteSettings {
   static String databaseId = 'goaldb';
-  static String eventCollection = 'events';
-  static String goalCollection = 'goals';
   static String eventImageBucket = 'event_images';
 }
 
