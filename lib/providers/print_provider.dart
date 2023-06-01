@@ -32,7 +32,6 @@ class PrintNotifier extends _$PrintNotifier {
 
   Future<Uint8List> _printPdf(Iterable<Event> events) async {
     final colors = ColorScheme.fromSeed(seedColor: Colors.deepPurple);
-    Log.d('AAAA COLORS PRIMARY HEX2: ${colors.primary.toHex}');
     final pdf = pw.Document();
     //retrieve images for event
     final eventImages = await Future.wait(events.map(
