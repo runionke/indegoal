@@ -31,6 +31,35 @@ class RightDrawer extends ConsumerWidget {
               onPressed: () => context.push('/export'),
               child: const Text('Export')),
           const Divider(),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 4.0),
+                child: Text(
+                  'Bright Mode',
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
+                  textScaleFactor: 0.8,
+                ),
+              ),
+              SizedBox(
+                width: 30,
+                height: 30,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Switch(
+                      value: Theme.of(context).colorScheme.brightness ==
+                          Brightness.light,
+                      onChanged: (value) => ref
+                          .watch(themeNotifierProvider.notifier)
+                          .setBrightness(value == true
+                              ? Brightness.light
+                              : Brightness.dark)),
+                ),
+              ),
+            ],
+          ),
           TextButton(
               onPressed: () =>
                   ref.watch(authNotifierProvider.notifier).logout(),

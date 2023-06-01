@@ -36,10 +36,13 @@ class HomeView extends ConsumerWidget {
               width: 120,
               child: RightDrawer(goal: activeGoals.firstOrNull),
             ),
-            body: switch (activeGoals.isEmpty) {
-              true => const NoGoal(),
-              false => GoalView(activeGoals.sortByEnd.first),
-            },
+            body: ColoredBox(
+              color: Theme.of(context).colorScheme.background,
+              child: switch (activeGoals.isEmpty) {
+                true => const NoGoal(),
+                false => GoalView(activeGoals.sortByEnd.first),
+              },
+            ),
             floatingActionButton: activeGoals.isNotEmpty
                 ? FloatingActionButton.large(
                     tooltip: 'Add Event',
