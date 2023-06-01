@@ -10,10 +10,12 @@ part 'theme_provider.g.dart';
 class ThemeNotifier extends _$ThemeNotifier {
   @override
   ThemeData build() {
+    final scheme = ColorScheme.fromSeed(
+        brightness: Brightness.light, seedColor: Colors.deepPurple);
     return ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-            brightness: Brightness.light, seedColor: Colors.deepPurple),
+        colorScheme: scheme,
         useMaterial3: true,
+        scaffoldBackgroundColor: scheme.background,
         extensions: const [ModalTheme.light]);
   }
 

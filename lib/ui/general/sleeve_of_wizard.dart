@@ -10,16 +10,19 @@ class SleeveOfWizard extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-            maxHeight: switch (Device.of(context).device) {
-          SmallDevice() => 400,
-          LargeDevice() => double.infinity,
-        }),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: child,
+    return ColoredBox(
+      color: Theme.of(context).colorScheme.background,
+      child: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+              maxHeight: switch (Device.of(context).device) {
+            SmallDevice() => 400,
+            LargeDevice() => double.infinity,
+          }),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: child,
+          ),
         ),
       ),
     );
