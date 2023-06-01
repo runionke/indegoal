@@ -1,6 +1,5 @@
 export 'main.dart';
 export 'model/auth.dart';
-export 'model/device.dart';
 export 'model/event.dart';
 export 'model/goal.dart';
 export 'model/print.dart';
