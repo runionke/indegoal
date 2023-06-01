@@ -23,39 +23,13 @@ class Log {
 
   static d(String msg) {
     _logger?.d(msg);
-    //print('d: $msg');
   }
 
   static e(String msg) {
     _logger?.e(msg);
-    //print('e: $msg');
   }
 
   static i(String msg) {
     _logger?.i(msg);
-    //print('i: $msg');
-  }
-}
-
-class Logging {
-  Logger? _logger;
-
-  Logging() {
-    _logger = Logger();
-  }
-
-  d(String msg) {
-    _logger?.d(msg);
-    //print('d: $msg');
-  }
-
-  e(String msg) {
-    _logger?.e(msg);
-    //print('e: $msg');
-  }
-
-  i(String msg) {
-    _logger?.i(msg);
-    //print('i: $msg');
   }
 }

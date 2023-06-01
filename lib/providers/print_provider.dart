@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:indegoal/lib.dart';
+import 'package:intl/intl.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -34,23 +35,14 @@ Future<Uint8List> printPdf(Iterable<Event> events) {
   pdf.addPage(pw.Page(
       pageFormat: PdfPageFormat.a4,
       build: (pw.Context context) {
-        return pw.Column(
-          children: [
-            ...events.map((e) => pw.Text('event: ${e.time}')),
-            pw.Text("Test Test"),
-          ],
-        );
+        return pw.Table(
+            children: events
+                .map((e) => pw.TableRow(children: [
+                      pw.Text(DateFormat.yMEd().format(e.time)),
+                      pw.Text(e.duration.toString()),
+                    ]))
+                .toList());
       }));
 
-  pdf.addPage(pw.Page(
-      pageFormat: PdfPageFormat.a4,
-      build: (pw.Context context) {
-        return pw.Column(
-          children: [
-            ...events.map((e) => pw.Text('event: ${e.time}')),
-            pw.Text("Test Test 2"),
-          ],
-        );
-      }));
   return pdf.save();
 }
