@@ -14,22 +14,19 @@ class EventNotifier extends _$EventNotifier {
       {Goal? goal, DateTime? fromDate, DateTime? toDate}) async {
     Log.d('EventNotifier-> build');
 
-    if (goal != null) {
-      Log.d(
-          'Event Notifier with goal between: ${goal.start.midnight.toIso8601String()} -  ${goal.end.midnight.toIso8601String()})');
-    }
-    final data = await ref.watch(appwriteProvider.notifier).list(
-        collection: DbCollection.events,
-        queries: goal != null
-            ? [
-                Query.greaterThanEqual(
-                  'time',
-                  fromDate ?? goal.start.midnight.toIso8601String(),
-                ),
-                Query.lessThanEqual(
-                    'time', toDate ?? goal.end.midnight.toIso8601String()),
-              ]
-            : null);
+    fromDate ??= goal?.start;
+    toDate ??= goal?.end;
+    Log.d(
+        'Event Notifier between: ${fromDate?.midnight.toIso8601String()} -  ${toDate?.midnight.toIso8601String()})');
+
+    final data = await ref
+        .watch(appwriteProvider.notifier)
+        .list(collection: DbCollection.events, queries: [
+      if (fromDate != null)
+        Query.greaterThanEqual('time', fromDate.toIso8601String()),
+      if (toDate != null)
+        Query.lessThanEqual('time', toDate.midnight.toIso8601String()),
+    ]);
 
     Log.d('Events retrieved from db: ${data.length}');
     //between("time", [2023-05-25 09:45:36.377,2023-05-25 09:45:36.377]
