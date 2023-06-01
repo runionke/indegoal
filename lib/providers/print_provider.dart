@@ -45,8 +45,8 @@ class PrintNotifier extends _$PrintNotifier {
                   .mapIndexed((i, e) => pw.TableRow(
                           decoration: pw.BoxDecoration(
                               color: i.isOdd
-                                  ? PdfColor.fromHex(colors.primary.toHex)
-                                  : PdfColor.fromHex(colors.secondary.toHex)),
+                                  ? PdfColor.fromHex(colors.primary.toHex())
+                                  : PdfColor.fromHex(colors.secondary.toHex())),
                           children: [
                             pw.Text(DateFormat.yMEd().format(e.time)),
                             pw.Text(e.duration.toString()),

@@ -6,5 +6,14 @@ extension DateExtensions on DateTime {
 }
 
 extension ColorExtensions on Color {
-  String get toHex => '#${value.toRadixString(16)}';
+  String toHex({bool leadingHashSign = false, bool withAlpha = false}) =>
+      '${leadingHashSign ? '#' : ''}'
+              '${switch (withAlpha) {
+        true => alpha.toRadixString(16).padLeft(2, '0'),
+        false => '',
+      }}'
+              '${red.toRadixString(16).padLeft(2, '0')}'
+              '${green.toRadixString(16).padLeft(2, '0')}'
+              '${blue.toRadixString(16).padLeft(2, '0')}'
+          .toUpperCase();
 }
