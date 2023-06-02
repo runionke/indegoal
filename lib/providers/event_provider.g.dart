@@ -6,7 +6,7 @@ part of 'event_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$eventImagesHash() => r'16ec395f7b0ee7f13896d415b7e9b9acbcf7d422';
+String _$eventImagesHash() => r'6ce68c458eafa22ab5aa23e044f93bd17ab5f03d';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -52,8 +52,8 @@ class EventImagesFamily extends Family<AsyncValue<List<Uint8List>>> {
   EventImagesProvider call({
     Event? event,
     String? eventId,
-    double height = 50,
-    double width = 50,
+    double? height = 50,
+    double? width = 50,
   }) {
     return EventImagesProvider(
       event: event,
@@ -123,8 +123,8 @@ class EventImagesProvider extends AutoDisposeFutureProvider<List<Uint8List>> {
 
   final Event? event;
   final String? eventId;
-  final double height;
-  final double width;
+  final double? height;
+  final double? width;
 
   @override
   bool operator ==(Object other) {

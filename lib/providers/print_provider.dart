@@ -35,8 +35,10 @@ class PrintNotifier extends _$PrintNotifier {
     final colors = ColorScheme.fromSeed(seedColor: Colors.deepPurple);
     final pdf = pw.Document();
     //retrieve images for event
-    final eventImages = await Future.wait(events.map(
-        (e) async => (await ref.watch(eventImagesProvider(event: e).future))));
+    //decided not to use images here and just allow download
+    // final eventImages = await Future.wait(events.map((e) async =>
+    //     (await ref.watch(
+    //         eventImagesProvider(event: e, height: 200, width: 200).future))));
 
     pdf.addPage(pw.Page(
         pageFormat: PdfPageFormat.standard,
@@ -65,30 +67,63 @@ class PrintNotifier extends _$PrintNotifier {
               ]),
             ]),
             //bdy
-            pw.Table(
-                children: events
-                    .mapIndexed((i, e) => pw.TableRow(
-                            decoration: pw.BoxDecoration(
-                                color: i.isOdd
-                                    ? PdfColor.fromHex(colors.primary.toHex())
-                                    : PdfColor.fromHex(
-                                        colors.secondary.toHex())),
-                            children: [
-                              pw.Text(DateFormat.yMEd().format(e.time)),
-                              pw.Text(e.duration.toString()),
-                              pw.Row(
-                                children: eventImages[i]
-                                    .map((e) => pw.Padding(
-                                        padding: const pw.EdgeInsets.all(8),
-                                        child: pw.Image(
-                                          pw.MemoryImage(e),
-                                          height: 30,
-                                          width: 30,
-                                        )))
-                                    .toList(),
-                              )
-                            ]))
-                    .toList())
+            pw.Table(children: [
+              //table heading
+              pw.TableRow(
+                  decoration: pw.BoxDecoration(
+                    border: pw.Border(
+                        bottom: pw.BorderSide(
+                            width: 0.5,
+                            color: PdfColor.fromHex(colors.tertiary.toHex()))),
+                  ),
+                  children: [pw.Text('Date'), pw.Text('Minutes Used')]),
+              ...events
+                  .mapIndexed((i, e) => pw.TableRow(
+                          decoration: pw.BoxDecoration(
+                              color: i.isOdd
+                                  ? PdfColor.fromHex(colors.primary
+                                      .lighten(amount: .40)
+                                      .toHex())
+                                  : PdfColor.fromHex(colors.secondary
+                                      .lighten(amount: .55)
+                                      .toHex())),
+                          children: [
+                            pw.Text(DateFormat.yMEd().format(e.time)),
+                            pw.Text(e.duration.toString()),
+                            // pw.Row(
+                            //   children: eventImages[i]
+                            //       .map((e) => pw.Padding(
+                            //           padding: const pw.EdgeInsets.all(8),
+                            //           child: pw.Image(
+                            //             pw.MemoryImage(e),
+                            //             // height: 30,
+                            //             // width: 30,
+                            //           )))
+                            //       .toList(),
+                            // )
+                          ]))
+                  .toList(),
+              //spacer
+              pw.TableRow(children: [
+                pw.SizedBox(height: 10),
+              ]),
+              //totals
+              pw.TableRow(
+                  decoration: pw.BoxDecoration(
+                      border: pw.Border(
+                          top: pw.BorderSide(
+                              width: 0.5,
+                              color: PdfColor.fromHex(colors.tertiary.toHex())),
+                          bottom: pw.BorderSide(
+                              width: 0.5,
+                              color:
+                                  PdfColor.fromHex(colors.tertiary.toHex())))),
+                  children: [pw.Text('Days Used'), pw.Text('Minutes Total')]),
+              pw.TableRow(children: [
+                pw.Text(events.groupTotaled.length.toString()),
+                pw.Text(events.minutes.toString())
+              ]),
+            ])
           ]);
         }));
 

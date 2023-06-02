@@ -106,8 +106,8 @@ Future<List<Uint8List>> eventImages(
   EventImagesRef ref, {
   Event? event,
   String? eventId,
-  double height = 50,
-  double width = 50,
+  double? height = 50,
+  double? width = 50,
 }) async {
   event ??= await ref.watch(eventProvider(eventId: eventId!).future);
   return (await ref.watch(appwriteProvider.notifier).previewFromStorage(

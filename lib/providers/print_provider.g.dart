@@ -6,7 +6,7 @@ part of 'print_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$printNotifierHash() => r'c1afb647b7adbd5b50a2a615203d1ac6e9ead4dd';
+String _$printNotifierHash() => r'c0d016cc75d6ee55fa27e9a07d1febc0280f1386';
 
 /// See also [PrintNotifier].
 @ProviderFor(PrintNotifier)
