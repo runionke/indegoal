@@ -26,11 +26,12 @@ class PrintNotifier extends _$PrintNotifier {
 
     state = switch (events.isEmpty) {
       true => const PrintJob.noData(),
-      false => PrintJob.complete(await _printPdf(events)),
+      false => PrintJob.complete(await _printPdf(events, from, to)),
     };
   }
 
-  Future<Uint8List> _printPdf(Iterable<Event> events) async {
+  Future<Uint8List> _printPdf(
+      Iterable<Event> events, DateTime dateFrom, DateTime dateTo) async {
     final colors = ColorScheme.fromSeed(seedColor: Colors.deepPurple);
     final pdf = pw.Document();
     //retrieve images for event
@@ -38,31 +39,57 @@ class PrintNotifier extends _$PrintNotifier {
         (e) async => (await ref.watch(eventImagesProvider(event: e).future))));
 
     pdf.addPage(pw.Page(
-        pageFormat: PdfPageFormat.a4,
+        pageFormat: PdfPageFormat.standard,
         build: (pw.Context context) {
-          return pw.Table(
-              children: events
-                  .mapIndexed((i, e) => pw.TableRow(
-                          decoration: pw.BoxDecoration(
-                              color: i.isOdd
-                                  ? PdfColor.fromHex(colors.primary.toHex())
-                                  : PdfColor.fromHex(colors.secondary.toHex())),
-                          children: [
-                            pw.Text(DateFormat.yMEd().format(e.time)),
-                            pw.Text(e.duration.toString()),
-                            pw.Row(
-                              children: eventImages[i]
-                                  .map((e) => pw.Padding(
-                                      padding: const pw.EdgeInsets.all(8),
-                                      child: pw.Image(
-                                        pw.MemoryImage(e),
-                                        height: 30,
-                                        width: 30,
-                                      )))
-                                  .toList(),
-                            )
-                          ]))
-                  .toList());
+          return pw.Column(children: [
+            //heading
+            pw.Column(mainAxisSize: pw.MainAxisSize.min, children: [
+              pw.Row(children: [
+                pw.SizedBox(
+                  width: 140,
+                  child: pw.Text('Range Operation:'),
+                ),
+                pw.Text(
+                    '${DateFormat.yMd().format(dateFrom)} - ${DateFormat.yMd().format(dateTo)}'),
+              ]),
+              pw.Row(children: [
+                pw.SizedBox(
+                  width: 140,
+                  child: pw.Text('Operator:'),
+                ),
+                pw.Text(switch (ref.watch(authNotifierProvider)) {
+                  Authorized(:final user) => user.email,
+                  _ => '',
+                }),
+                pw.SizedBox(height: 30),
+              ]),
+            ]),
+            //bdy
+            pw.Table(
+                children: events
+                    .mapIndexed((i, e) => pw.TableRow(
+                            decoration: pw.BoxDecoration(
+                                color: i.isOdd
+                                    ? PdfColor.fromHex(colors.primary.toHex())
+                                    : PdfColor.fromHex(
+                                        colors.secondary.toHex())),
+                            children: [
+                              pw.Text(DateFormat.yMEd().format(e.time)),
+                              pw.Text(e.duration.toString()),
+                              pw.Row(
+                                children: eventImages[i]
+                                    .map((e) => pw.Padding(
+                                        padding: const pw.EdgeInsets.all(8),
+                                        child: pw.Image(
+                                          pw.MemoryImage(e),
+                                          height: 30,
+                                          width: 30,
+                                        )))
+                                    .toList(),
+                              )
+                            ]))
+                    .toList())
+          ]);
         }));
 
     return pdf.save();

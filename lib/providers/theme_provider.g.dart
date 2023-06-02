@@ -6,7 +6,7 @@ part of 'theme_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$themeNotifierHash() => r'1fedf3340c95e9af5c5f9f6c35a58bd36d6e39d6';
+String _$themeNotifierHash() => r'c186c1294a2ac8fe8d2530487955baae0d8906b8';
 
 ///Allows access to theme outside of context, like reporting.
 ///Provides a means to update state of theme (light / dark)
