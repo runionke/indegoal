@@ -77,7 +77,7 @@ class EventEditView extends ConsumerWidget {
 class NoteEdit extends StatefulWidget {
   const NoteEdit({super.key, required this.note, required this.onSave});
   final String note;
-  final Function(String note) onSave;
+  final void Function(String note) onSave;
 
   @override
   State<NoteEdit> createState() => _NoteEditState();

@@ -15,7 +15,7 @@ class PortalModal<T> extends StatelessWidget {
       required this.onCancel});
 
   ///Called when clicking out of bounds.
-  final Function() onCancel;
+  final void Function() onCancel;
 
   final Widget child;
   final EdgeInsetsGeometry? padding;

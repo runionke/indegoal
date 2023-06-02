@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 
 class EventImagePicker extends StatefulWidget {
   const EventImagePicker({super.key, required this.onPick});
-  final Function(List<Uint8List> images) onPick;
+  final void Function(List<Uint8List> images) onPick;
 
   @override
   State<EventImagePicker> createState() => _EventImagePickerState();

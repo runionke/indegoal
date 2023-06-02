@@ -13,8 +13,8 @@ class Editor extends StatelessWidget {
   });
 
   final String? label;
-  final Function()? onSave;
-  final Function() onCancel;
+  final void Function()? onSave;
+  final void Function() onCancel;
   final Widget? saveDisplay;
   final Widget? cancelDisplay;
 

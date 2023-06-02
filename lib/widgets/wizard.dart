@@ -10,13 +10,13 @@ class Wizard extends StatefulWidget {
     this.outtrow,
   });
 
-  final Function()? onCancel;
-  final Function()? onComplete;
-  final Function(
+  final void Function()? onCancel;
+  final void Function()? onComplete;
+  final Widget Function(
     BuildContext context,
     Widget step,
-    Function() previous,
-    Function() next,
+    void Function() previous,
+    void Function() next,
     int index,
   ) builder;
   final List<WizardStep> steps;
