@@ -34,6 +34,7 @@ class EventNotifier extends _$EventNotifier {
     return data.map((e) => Event.fromJson(e));
   }
 
+  ///add event to database and upload images to storage
   Future<void> create(Event event, {List<Uint8List>? images}) async {
     final notifier = ref.watch(appwriteProvider.notifier);
 
@@ -64,6 +65,18 @@ class EventNotifier extends _$EventNotifier {
 
     //refresh any event listeners
     ref.invalidate(eventProvider(eventId: event.id));
+  }
+
+  ///remove image using the eventId and position in the photos list.
+  Future<void> removeImage(String eventId, int imageIndex) async {
+    final event = await ref.read(eventProvider(eventId: eventId).future);
+    final imageId = event.photos[imageIndex];
+
+    await ref.watch(appwriteProvider.notifier).deleteFromStorage(
+        fileId: imageId, bucketId: AppwriteSettings.eventImageBucket);
+    await save(event.copyWith(
+        photos: event.photos.where((element) => element != imageId).toList()));
+    ref.invalidate(eventNotifierProvider); //invalidate the entire family
   }
 
   Future<void> delete(String id) async {

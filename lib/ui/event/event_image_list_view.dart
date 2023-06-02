@@ -25,8 +25,33 @@ class EventImageListView extends ConsumerWidget {
               itemBuilder: (context, index) {
                 return ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
-                    child: ImageThumbnail(
-                      bytes: images[index],
+                    child: Stack(
+                      children: [
+                        ImageThumbnail(
+                          width: double.infinity,
+                          height: double.infinity,
+                          bytes: images[index],
+                        ),
+                        Positioned(
+                          top: 1,
+                          right: 1,
+                          child: PopupMenuButton<Function>(
+                            onSelected: (value) {
+                              value();
+                            },
+                            icon: const Icon(Icons.more_vert),
+                            itemBuilder: (context) =>
+                                <PopupMenuEntry<Function>>[
+                              PopupMenuItem(
+                                value: () => ref
+                                    .watch(eventNotifierProvider().notifier)
+                                    .removeImage(eventId, index),
+                                child: const Text('Delete'),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ));
               },
             ),

@@ -133,6 +133,12 @@ class Appwrite extends _$Appwrite {
     return uploads.map((e) => e.$id);
   }
 
+  Future<void> deleteFromStorage(
+      {required String fileId, required String bucketId}) async {
+    final storage = Storage(state.client);
+    await storage.deleteFile(bucketId: bucketId, fileId: fileId);
+  }
+
   ///retrieve image preview adjust with optional [height] and [width]
   Future<Iterable<Uint8List>> previewFromStorage({
     required String bucketId,

@@ -6,8 +6,11 @@ class ImageThumbnail extends StatelessWidget {
   const ImageThumbnail({
     super.key,
     required this.bytes,
+    this.width,
+    this.height,
   });
   final Uint8List bytes;
+  final double? width, height;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +18,8 @@ class ImageThumbnail extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(10)),
         child: Image.memory(
           bytes,
+          width: width,
+          height: height,
           fit: BoxFit.cover,
         ));
   }
