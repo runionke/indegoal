@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:indegoal/lib.dart';
+//I'm implementing this on web. If you build for another platform the download
+//functionality is just going to add a log message
+import 'package:indegoal/util/download/download_not.dart'
+    if (dart.library.html) 'package:indegoal/util/download/download_web.dart';
 
 class EventImageListView extends ConsumerWidget {
   const EventImageListView({
@@ -42,6 +46,18 @@ class EventImageListView extends ConsumerWidget {
                             icon: const Icon(Icons.more_vert),
                             itemBuilder: (context) =>
                                 <PopupMenuEntry<Function>>[
+                              PopupMenuItem(
+                                value: () {
+                                  final event = ref
+                                      .read(eventProvider(eventId: eventId))
+                                      .valueOrNull;
+
+                                  download(images[index],
+                                      downloadName:
+                                          '${event == null ? DateTime.now().toString() : event.id}.jpg');
+                                },
+                                child: const Text('Download'),
+                              ),
                               PopupMenuItem(
                                 value: () => ref
                                     .watch(eventNotifierProvider().notifier)

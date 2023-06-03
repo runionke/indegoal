@@ -47,7 +47,7 @@ dependencies:
   shimmer: ^3.0.0
   printing: ^5.11.0
   pdf: ^3.10.4
-  
+
   flutter_web_plugins:
     sdk: flutter
 
