@@ -32,6 +32,7 @@ export 'ui/login/auth_complete.dart';
 export 'ui/login/google_signin_button.dart';
 export 'ui/login/login_view.dart';
 export 'ui/report/export_pdf_view.dart';
+export 'ui/report/usage_report.dart';
 export 'util/common_extensions.dart';
 export 'util/log.dart';
 export 'widgets/basic_box.dart';
