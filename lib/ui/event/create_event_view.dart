@@ -75,7 +75,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
                         value: event.duration,
                         minValue: 1,
                         maxValue: 100,
-                        textStyle: const TextStyle(fontSize: 40),
+                        selectedTextStyle: const TextStyle(fontSize: 40),
                         itemHeight: constraints.maxHeight / 4,
                         onChanged: (value) => setState(
                             () => event = event.copyWith(duration: value)),

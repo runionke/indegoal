@@ -45,7 +45,7 @@ class _CreateGoalViewState extends ConsumerState<CreateGoalView> {
                         minValue: 1,
                         maxValue: 365,
                         itemHeight: constraints.maxHeight / 2,
-                        textStyle: const TextStyle(fontSize: 40),
+                        selectedTextStyle: const TextStyle(fontSize: 40),
                         onChanged: (value) =>
                             setState(() => goal = goal.copyWith(period: value)),
                       ),
@@ -92,7 +92,7 @@ class _CreateGoalViewState extends ConsumerState<CreateGoalView> {
                         minValue: 1,
                         maxValue: 300,
                         itemHeight: constraints.maxHeight / 2,
-                        textStyle: const TextStyle(fontSize: 40),
+                        selectedTextStyle: const TextStyle(fontSize: 40),
                         onChanged: (value) => setState(
                             () => goal = goal.copyWith(minutes: value)),
                       ),
