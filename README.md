@@ -1,3 +1,2 @@
 # indegoal
-
-A App for tracking progress with Indego Exoskeleton
+The Indegoal project is an application to track and report on the usage of the Indego Exoskeleton. In September of 2020, I was hit by a reckless driver and paralyzed from chest down, sustaining a T3 spinal cord injury. As a US veteran, I was fortunate in being given the opportunity to receive an Indego Exoskeleton, which has many benefits for both physical and mental health for someone with a spinal cord injury. As part of the processes for receiving this equipment you must use and document its use over an initial trial period. I wanted to create an easy to use app that might be of benefit to others who will be going through this process with the VA, and for after to help stay motivated and continue to track their progress.

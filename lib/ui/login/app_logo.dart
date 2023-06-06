@@ -12,7 +12,7 @@ class AppLogo extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
-              color: Theme.of(context).colorScheme.secondary.withOpacity(0.3)),
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.2)),
           child: Padding(
             padding: const EdgeInsets.symmetric(
               vertical: 18.0,
