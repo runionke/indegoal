@@ -22,11 +22,10 @@ GoRouter router(RouterRef ref) {
         return null;
       }, unauthorized: () {
         Log.d('GoRouter auth state unauthorized');
-        if (state.location.contains('register') ||
-            state.location.contains('auth')) {
-          return null;
-        }
-        return '/auth';
+        return switch (state.location.contains('auth')) {
+          true => null,
+          false => '/auth',
+        };
       });
     },
     routes: [
