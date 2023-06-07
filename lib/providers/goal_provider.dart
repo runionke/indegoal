@@ -25,7 +25,8 @@ class GoalNotifier extends _$GoalNotifier {
     await ref
         .watch(appwriteProvider.notifier)
         .create(data: goal.toJson(), collection: DbCollection.goals);
-    ref.invalidateSelf();
+
+    state = AsyncValue.data((await future).toList()..add(goal));
   }
 
   ///delete from database
