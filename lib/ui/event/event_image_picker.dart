@@ -12,7 +12,8 @@ class EventImagePicker extends StatefulWidget {
 }
 
 class _EventImagePickerState extends State<EventImagePicker> {
-  final List<XFile> images = [];
+  final List<Uint8List> images = [];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,17 +21,14 @@ class _EventImagePickerState extends State<EventImagePicker> {
       children: [
         Wrap(
           children: [
-            ...images.map((e) => FutureBuilder<Uint8List>(
-                  future: e.readAsBytes(),
-                  builder: (context, snapshot) => snapshot.hasData
-                      ? Image.memory(
-                          snapshot.data!,
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                        )
-                      : const SizedBox.shrink(),
-                ))
+            ...images.map(
+              (e) => Image.memory(
+                e,
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+              ),
+            ),
           ],
         ),
         Padding(
@@ -40,9 +38,10 @@ class _EventImagePickerState extends State<EventImagePicker> {
             children: [
               ElevatedButton(
                   onPressed: () async {
-                    images.addAll(await ImagePicker().pickMultiImage());
-                    widget.onPick(
-                        await Future.wait(images.map((e) => e.readAsBytes())));
+                    images.addAll(await Future.wait(
+                        (await ImagePicker().pickMultiImage())
+                            .map((e) => e.readAsBytes())));
+                    widget.onPick(images);
                     setState(() {});
                   },
                   child: const Padding(
