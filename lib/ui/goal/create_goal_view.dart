@@ -26,6 +26,7 @@ class _CreateGoalViewState extends ConsumerState<CreateGoalView> {
             context.go('/');
           }
         },
+        outtrow: () => const Loading.shimmer(),
         steps: [
           WizardStep(
             builder: (_) {

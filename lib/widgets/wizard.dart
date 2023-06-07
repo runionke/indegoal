@@ -22,7 +22,7 @@ class Wizard extends StatefulWidget {
   final List<WizardStep> steps;
 
   ///shown after complete
-  final Widget? outtrow;
+  final Widget Function()? outtrow;
 
   @override
   State<Wizard> createState() => _WizardState();
@@ -34,7 +34,9 @@ class _WizardState<T extends Object> extends State<Wizard> {
   @override
   Widget build(BuildContext context) {
     if (stepIndex < 0 || stepIndex > widget.steps.length - 1) {
-      return widget.outtrow ?? const SizedBox.shrink();
+      return widget.outtrow != null
+          ? widget.outtrow!()
+          : const SizedBox.shrink();
     }
 
     return widget.builder(

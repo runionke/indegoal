@@ -22,6 +22,7 @@ class _CreateEventViewState extends ConsumerState<CreateEventView> {
       appBar: AppBar(title: const Text('Add Event')),
       body: SleeveOfWizard(
           child: Wizard(
+        outtrow: () => const Loading.shimmer(),
         onCancel: () => context.go('/'),
         onComplete: () async {
           //must pass the correct parameter goal, to invalidate and rebuild same provider
