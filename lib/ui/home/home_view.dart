@@ -8,50 +8,56 @@ class HomeView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    return ref.watch(goalNotifierProvider).when(
-        loading: () => const Loading.shimmer(),
-        error: (error, stackTrace) => ErrWidget(
-              error,
-              stackTrace: stackTrace,
-            ),
-        data: (goals) {
-          final activeGoals = goals.active;
-          return Scaffold(
-            appBar: AppBar(
-              title: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 5.0),
-                    child: AppIcon(
-                      width: 35,
-                      height: 35,
-                    ),
-                  ),
-                  Text('IndeGoal'),
-                ],
+    return Scaffold(
+        appBar: AppBar(
+          title: const Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(right: 5.0),
+                child: AppIcon(
+                  width: 35,
+                  height: 35,
+                ),
+              ),
+              Text('IndeGoal'),
+            ],
+          ),
+        ),
+
+        //the notifier is being watched 3 times like this so that
+        //at least the appbar loads during the loading phase.
+        //could also have returned a separate scaffold in loading. and just used
+        //a top level goalNotifierProvider
+        endDrawer: Drawer(
+          width: 120,
+          child: ref.watch(goalNotifierProvider).when(
+              loading: () => const Loading(),
+              error: (error, stackTrace) => ErrWidget(error),
+              data: (goals) => RightDrawer(goal: goals.active.firstOrNull)),
+        ),
+        body: ref.watch(goalNotifierProvider).when(
+              loading: () => const Loading(),
+              error: (error, stackTrace) => ErrWidget(error),
+              data: (goals) => ColoredBox(
+                color: Theme.of(context).colorScheme.background,
+                child: switch (goals.active.isEmpty) {
+                  true => const NoGoal(),
+                  false => GoalView(goals.active.sortByEnd.first),
+                },
               ),
             ),
-            endDrawer: Drawer(
-              width: 120,
-              child: RightDrawer(goal: activeGoals.firstOrNull),
-            ),
-            body: ColoredBox(
-              color: Theme.of(context).colorScheme.background,
-              child: switch (activeGoals.isEmpty) {
-                true => const NoGoal(),
-                false => GoalView(activeGoals.sortByEnd.first),
-              },
-            ),
-            floatingActionButton: activeGoals.isNotEmpty
-                ? FloatingActionButton.large(
-                    tooltip: 'Add Event',
-                    child: const Icon(Icons.add),
-                    onPressed: () => context
-                        .push('/cevent/${activeGoals.sortByEnd.first.id}'),
-                  )
-                : null,
-          );
-        });
+        floatingActionButton: ref.watch(goalNotifierProvider).when(
+              loading: () => const Loading(),
+              error: (error, stackTrace) => ErrWidget(error),
+              data: (goals) => goals.active.isNotEmpty
+                  ? FloatingActionButton.large(
+                      tooltip: 'Add Event',
+                      child: const Icon(Icons.add),
+                      onPressed: () => context
+                          .push('/cevent/${goals.active.sortByEnd.first.id}'),
+                    )
+                  : null,
+            ));
   }
 }
