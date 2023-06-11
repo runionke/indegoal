@@ -25,8 +25,8 @@ class GoalView extends ConsumerWidget {
                     child: Flex(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       direction: switch (Device.of(context).device) {
-                        SmallDevice() => Axis.horizontal,
-                        LargeDevice() => Axis.vertical,
+                        SmallDevice() => Axis.vertical,
+                        LargeDevice() => Axis.horizontal,
                       },
                       children: [
                         Text(

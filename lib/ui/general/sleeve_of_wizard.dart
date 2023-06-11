@@ -14,8 +14,8 @@ class SleeveOfWizard extends StatelessWidget {
       child: ConstrainedBox(
         constraints: BoxConstraints(
             maxHeight: switch (Device.of(context).device) {
-          SmallDevice() => 400,
-          LargeDevice() => double.infinity,
+          SmallDevice() => double.infinity,
+          LargeDevice() => 400,
         }),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

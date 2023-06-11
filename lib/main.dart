@@ -17,7 +17,7 @@ class MyApp extends ConsumerWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         return Device(
-          device: constraints.maxWidth > 600
+          device: constraints.maxWidth < 600
               ? const DeviceType.small()
               : const DeviceType.large(),
           child: MaterialApp.router(
