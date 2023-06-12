@@ -32,13 +32,13 @@ class HomeView extends ConsumerWidget {
         endDrawer: Drawer(
           width: 120,
           child: ref.watch(goalNotifierProvider).when(
-              loading: () => const Loading(),
-              error: (error, stackTrace) => ErrWidget(error),
+              loading: Loading.new,
+              error: ErrWidget.new,
               data: (goals) => RightDrawer(goal: goals.active.firstOrNull)),
         ),
         body: ref.watch(goalNotifierProvider).when(
-              loading: () => const Loading(),
-              error: (error, stackTrace) => ErrWidget(error),
+              loading: Loading.new,
+              error: ErrWidget.new,
               data: (goals) => ColoredBox(
                 color: Theme.of(context).colorScheme.background,
                 child: switch (goals.active.isEmpty) {
@@ -48,8 +48,8 @@ class HomeView extends ConsumerWidget {
               ),
             ),
         floatingActionButton: ref.watch(goalNotifierProvider).when(
-              loading: () => const Loading(),
-              error: (error, stackTrace) => ErrWidget(error),
+              loading: Loading.new,
+              error: ErrWidget.new,
               data: (goals) => goals.active.isNotEmpty
                   ? FloatingActionButton.large(
                       tooltip: 'Add Event',

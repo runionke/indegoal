@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:indegoal/lib.dart';
 
 class ErrWidget extends StatefulWidget {
-  const ErrWidget(this.error, {super.key, this.stackTrace});
+  const ErrWidget(
+    this.error,
+    this.stackTrace, {
+    super.key,
+  });
 
   final Object error;
-  final StackTrace? stackTrace;
+  final StackTrace stackTrace;
   @override
   State<ErrWidget> createState() => _ErrWidgetState();
 }

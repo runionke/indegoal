@@ -72,8 +72,8 @@ class GoalView extends ConsumerWidget {
                           ],
                         );
                       },
-                      error: (error, stackTrace) => ErrWidget(error),
-                      loading: () => const Loading()),
+                      error: ErrWidget.new,
+                      loading: Loading.new),
                 ],
               ),
             ),

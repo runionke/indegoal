@@ -19,8 +19,8 @@ class EventImageListView extends ConsumerWidget {
     return ref
         .watch(eventImagesProvider(eventId: eventId, width: 200, height: 200))
         .when(
-          loading: () => const Loading.shimmer(),
-          error: (error, stackTrace) => ErrWidget(error),
+          loading: Loading.shimmer,
+          error: ErrWidget.new,
           data: (images) => Card(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

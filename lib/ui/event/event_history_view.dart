@@ -25,8 +25,8 @@ class EventHistoryView extends ConsumerWidget {
                     EventHistoryItem(events[index], goalId),
               );
             },
-            error: (error, stackTrace) => ErrWidget(error),
-            loading: () => const Loading.shimmer(),
+            error: ErrWidget.new,
+            loading: Loading.shimmer,
           ),
     );
   }
@@ -82,8 +82,8 @@ class EventHistoryItem extends ConsumerWidget {
                             ),
                           );
                         },
-                        error: (error, stackTrace) => ErrWidget(error),
-                        loading: () => const Loading.shimmer(),
+                        error: ErrWidget.new,
+                        loading: Loading.shimmer,
                       ),
                 ),
                 Padding(

@@ -13,8 +13,8 @@ class GoalTimeChart extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ref.watch(eventNotifierProvider(goal: goal)).when(
-              loading: () => const Loading(),
-              error: (error, stackTrace) => ErrWidget(error),
+              loading: Loading.new,
+              error: ErrWidget.new,
               data: (events) => DChartTime(
                 chartRender: DRenderBar(),
                 measureLabel: (value) => '$value',

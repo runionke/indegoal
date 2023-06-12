@@ -17,8 +17,8 @@ class EventEditView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return ref.watch(eventProvider(eventId: eventId)).when(
-        loading: () => const Loading(),
-        error: (error, stackTrace) => ErrWidget(error),
+        loading: Loading.new,
+        error: ErrWidget.new,
         data: (event) => Scaffold(
             appBar: AppBar(
               title: Card(
