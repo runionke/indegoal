@@ -85,14 +85,14 @@ class Appwrite extends _$Appwrite {
     return response.data;
   }
 
-  Future<void> create({
+  Future<String> create({
     required Map<String, dynamic> data,
     required DbCollection collection,
   }) async {
     Log.d('AppwriteNotifier -> create : $collection');
     final user = await state.account.get();
     data['userId'] = user.$id;
-    await state.database.createDocument(
+    var document = await state.database.createDocument(
       databaseId: AppwriteSettings.databaseId,
       collectionId: collection.name,
       documentId: ID.unique(),
@@ -102,6 +102,7 @@ class Appwrite extends _$Appwrite {
         Permission.write(Role.user(user.$id)),
       ],
     );
+    return document.$id;
   }
 
   Future<void> delete({

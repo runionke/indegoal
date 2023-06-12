@@ -22,11 +22,12 @@ class GoalNotifier extends _$GoalNotifier {
   ///add to database
   Future<void> create(Goal goal) async {
     Log.d('GoalNotifier -> create $goal');
-    await ref
+    final id = await ref
         .watch(appwriteProvider.notifier)
         .create(data: goal.toJson(), collection: DbCollection.goals);
 
-    state = AsyncValue.data((await future).toList()..add(goal));
+    state =
+        AsyncValue.data((await future).toList()..add(goal.copyWith(id: id)));
   }
 
   ///delete from database
