@@ -19,7 +19,7 @@ class _ErrWidgetState extends State<ErrWidget> {
   void initState() {
     super.initState();
 
-    Log.d('ErrWidget: ${widget.error} : ${widget.stackTrace}');
+    Log.e('ErrWidget: ${widget.error} : ${widget.stackTrace}');
   }
 
   @override
