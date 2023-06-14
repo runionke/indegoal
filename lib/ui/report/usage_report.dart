@@ -99,7 +99,7 @@ class UsageReport {
                                   PdfColor.fromHex(colors.tertiary.toHex())))),
                   children: [pw.Text('Days Used'), pw.Text('Minutes Total')]),
               pw.TableRow(children: [
-                pw.Text(events.groupTotaled.length.toString()),
+                pw.Text((events.groupTotaled.length + 1).toString()),
                 pw.Text(events.minutes.toString())
               ]),
             ])
