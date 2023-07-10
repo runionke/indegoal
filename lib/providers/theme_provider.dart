@@ -26,9 +26,10 @@ class ThemeNotifier extends _$ThemeNotifier {
   void setBrightness(Brightness brightness) {
     final scheme = ColorScheme.fromSeed(
         seedColor: state.colorScheme.primary, brightness: brightness);
-    state = state.copyWith(
+    state = ThemeData(
         scaffoldBackgroundColor: scheme.background,
         colorScheme: scheme,
+        useMaterial3: true,
         extensions: [
           brightness == Brightness.light ? ModalTheme.light : ModalTheme.dark
         ]);
