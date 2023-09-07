@@ -32,14 +32,14 @@ class ProgressWidget extends StatelessWidget {
             child: SizedBox(
               height: 20,
               child: DChartSingleBar(
-                forgroundLabel: Text(
+                foregroundLabel: Text(
                   foreLabel,
                   style:
                       TextStyle(color: Theme.of(context).colorScheme.onPrimary),
                 ),
                 backgroundLabel: Text(backLabel),
                 backgroundColor: Colors.grey,
-                forgroundColor: Theme.of(context).colorScheme.primary,
+                foregroundColor: Theme.of(context).colorScheme.primary,
                 value: value,
                 max: max,
                 radius: const BorderRadius.all(Radius.circular(8)),
